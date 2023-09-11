@@ -23,8 +23,4 @@ export class CardsListComponent implements OnInit {
     this.cards.push({name: "Lesha", description: "Lesha"});
   }
 
-  onOffsetChanges(value: number): void {
-    this.cardOffset = value;
-  }
-
 }

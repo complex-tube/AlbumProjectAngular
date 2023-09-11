@@ -1,8 +1,21 @@
 @use "src/base";
 
 header {
-  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 56px;
   background-color: black;
 
-  margin-bottom: base.$unified-margin-bottom;
+  .container {
+    display: flex;
+    justify-content: right;
+    min-width: base.$container-adaptive-full-hd-width;
+
+    .login {
+      height: 50px;
+      width: 100px;
+    }
+  }
 }

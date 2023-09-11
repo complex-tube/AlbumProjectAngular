@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Card} from "../models/card";
 
 @Component({
@@ -10,9 +10,6 @@ export class CardItemComponent implements OnInit {
 
   @Input()
   card: Card | null = null;
-
-  @Output()
-  onOffsetChange: EventEmitter<number> = new EventEmitter();
 
   @ViewChild('cardElement')
   cardElement!: ElementRef;
@@ -47,9 +44,6 @@ export class CardItemComponent implements OnInit {
       width: boundingCardRect.width,
       height: boundingCardRect.height
     };
-
-    this.onOffsetChange.emit(eventTarget.pageY - cardParams.y);
-    console.log(eventTarget.pageY - cardParams.y);
 
     const offset: {x: number, y: number} = {
       x: eventTarget.pageX - cardParams.x - cardParams.width / 2,

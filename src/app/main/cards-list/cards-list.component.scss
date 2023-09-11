@@ -12,8 +12,6 @@ main {
   .container {
     width: base.$container-adaptive-full-hd-width;
 
-    margin-bottom: base.$unified-margin-bottom;
-
     ul {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
