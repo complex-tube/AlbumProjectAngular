@@ -1,1 +1,7 @@
 @use "src/base";
+
+album-cards-list {
+  display: flex;
+  flex: auto;
+  height: auto;
+}
