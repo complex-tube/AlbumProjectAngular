@@ -1,0 +1,13 @@
+<li class="card"
+    (mousemove)="onMouseMove($event)"
+    (mouseenter)="onMouseOver($event)"
+    (mouseleave)="onMouseLeave()"
+    #cardElement>
+  <div class="content">
+    <div class="img"></div>
+    <div class="info">
+      <div class="name">{{card!.name}}</div>
+      <div class="description">{{card!.description}}</div>
+    </div>
+  </div>
+</li>
