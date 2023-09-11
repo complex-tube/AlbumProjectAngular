@@ -1,0 +1,20 @@
+$adaptive-full-hd-coefficient-width: 100 / 1920 / 100 * 100vw;
+$adaptive-full-hd-coefficient-height: 100 / 1080 / 100 * 100vh;
+
+$container-adaptive-full-hd-width: $adaptive-full-hd-coefficient-width * 1280;
+
+$unified-margin-bottom: 100px;
+
+* {
+  padding: 0;
+  margin: 0;
+
+  perspective: 500px;
+
+  body {
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+  }
+}
