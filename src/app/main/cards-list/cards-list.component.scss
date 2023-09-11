@@ -1,0 +1,29 @@
+@use "src/base";
+
+main {
+  display: flex;
+  flex: auto;
+
+  width: 100vw;
+
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    width: base.$container-adaptive-full-hd-width;
+
+    margin-bottom: base.$unified-margin-bottom;
+
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
+      justify-items: center;
+      align-items: center;
+
+      list-style: none;
+      transform-style: preserve-3d;
+    }
+  }
+}
