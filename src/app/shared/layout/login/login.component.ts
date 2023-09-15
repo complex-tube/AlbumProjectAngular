@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {AuthorizationService, AuthType} from "../../../core/services/authorization/authorization.service";
+import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
+import {AuthType} from "../../../core/services/authorization/authorization.service";
 import {fromEvent, Subscription} from "rxjs";
 import {Store} from "@ngrx/store";
 import {setRegisterAuthType} from "../../../core/actions/auth.action";
@@ -9,18 +9,14 @@ import {setRegisterAuthType} from "../../../core/actions/auth.action";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('toRegistrationButton')
   toRegistrationButton!: ElementRef;
 
   toRegistrationButtonEventSubscription!: Subscription;
 
-  constructor(private authService: AuthorizationService,
-              private store: Store<{authType: AuthType}>) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private store: Store<{authType: AuthType}>) { }
 
   ngAfterViewInit(): void {
     this.toRegistrationButtonEventSubscription = fromEvent(this.toRegistrationButton.nativeElement, 'click').subscribe(() => {

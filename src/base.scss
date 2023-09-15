@@ -2,15 +2,17 @@
 $adaptive-full-hd-coefficient-width: 100 / 1920 / 100 * 100vw;
 $adaptive-full-hd-coefficient-height: 100 / 1080 / 100 * 100vh;
 
+// Adaptive container width
 $container-adaptive-full-hd-width: $adaptive-full-hd-coefficient-width * 1280;
 
+// Unified margin
 $unified-margin-bottom: 100px;
 
 // Z-indexes
 $window-z-index: 1000;
 
 // Colors
-$white-color: #FFFFFF;
+$white-color: #FFF;
 $black-color: #2B2B2B;
 $dark-color: #1B1B1B;
 $cyan-color: #D6EAFC;
@@ -35,7 +37,6 @@ $red-color: #EB0F0F;
 
   width: 100vw;
   height: 100vh;
-
   position: absolute;
   top: 0;
   left: 0;
@@ -44,7 +45,6 @@ $red-color: #EB0F0F;
   .background {
     width: 100%;
     height: 100%;
-
     position: fixed;
     top: 0;
     left: 0;
@@ -63,7 +63,6 @@ $red-color: #EB0F0F;
       $back-button-size: 32px;
 
       background: $white-color;
-
       border-radius: 4px;
     }
   }
@@ -77,13 +76,11 @@ $red-color: #EB0F0F;
   body {
     display: flex;
     flex-direction: column;
-
     min-height: 100vh;
 
     album-root {
       display: flex;
       flex-direction: column;
-
       min-height: 100vh;
     }
   }

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {Card} from "../models/card";
 
 @Component({
@@ -6,7 +6,7 @@ import {Card} from "../models/card";
   templateUrl: './card-item.component.html',
   styleUrls: ['./card-item.component.scss']
 })
-export class CardItemComponent implements OnInit {
+export class CardItemComponent {
 
   @Input()
   card: Card | null = null;
@@ -15,9 +15,6 @@ export class CardItemComponent implements OnInit {
   cardElement!: ElementRef;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onMouseMove(eventTarget: MouseEvent): void {
     const rotateValues = this.getRotateValues(eventTarget);
