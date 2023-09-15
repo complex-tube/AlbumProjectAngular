@@ -1,0 +1,19 @@
+<div class="registration">
+  <h1>Зарегистрироваться</h1>
+  <div class="registration-form">
+    <div class="registration-container">
+      <label for="registration-email">Почта: </label>
+      <input class="email-input" id="registration-email" #registrationEmailInput>
+    </div>
+    <div class="password-container">
+      <label for="registration-password">Пароль: </label>
+      <input class="password-input" id="registration-password" #registrationPasswordInput>
+    </div>
+    <div class="password-repeat-container">
+      <label for="registration-password-repeat">Пароль: </label>
+      <input class="password-input" id="registration-password-repeat" #registrationPasswordRepeatInput>
+    </div>
+  </div>
+  <button class="submit" #registrationSubmitButton>Отправить</button>
+  <a class="to-login anchor" #toLoginButton>Уже есть аккаунт</a>
+</div>

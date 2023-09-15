@@ -1,0 +1,33 @@
+@use "src/base";
+
+$window-width: base.$adaptive-full-hd-coefficient-width * 520;
+$window-container-width: base.$adaptive-full-hd-coefficient-width * 420;
+
+.window {
+  @extend %window;
+
+  .outer-window {
+    .inner-window {
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+
+
+      width: $window-width;
+
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+      .window-container {
+        width: $window-container-width;
+
+        a {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

@@ -22,6 +22,10 @@ main {
 
       list-style: none;
       transform-style: preserve-3d;
+
+      album-card-item {
+        perspective: 500px;
+      }
     }
   }
 }

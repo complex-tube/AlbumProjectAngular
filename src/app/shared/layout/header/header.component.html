@@ -1,7 +1,9 @@
 <header>
   <div class="container">
-    <button class="login">
+    <button class="login" (click)="onLoginButtonClick()">
       Войти
     </button>
   </div>
 </header>
+
+<album-auth-window *ngIf="loginConfig" [config]="loginConfig"></album-auth-window>
