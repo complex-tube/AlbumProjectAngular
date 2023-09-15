@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "lint-scss": "stylelint src/**/*.scss",
     "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "private": true,
   "dependencies": {
