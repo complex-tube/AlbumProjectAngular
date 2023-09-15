@@ -1,7 +1,7 @@
-import {Component, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {Window, WindowConfig} from "../../../core/base/window";
 import {AuthorizationService, AuthType} from "../../../core/services/authorization/authorization.service";
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
 
 @Component({

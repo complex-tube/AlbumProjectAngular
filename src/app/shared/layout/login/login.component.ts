@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from
 import {AuthorizationService, AuthType} from "../../../core/services/authorization/authorization.service";
 import {fromEvent, Subscription} from "rxjs";
 import {Store} from "@ngrx/store";
-import {setLoginAuthType, setRegisterAuthType} from "../../../core/actions/auth.action";
+import {setRegisterAuthType} from "../../../core/actions/auth.action";
 
 @Component({
   selector: 'album-login',
