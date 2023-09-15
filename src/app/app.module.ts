@@ -10,6 +10,8 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuth, AngularFireAuthModule} from "@angular/fire/compat/auth";
 
 import {environment} from "../environments/environment";
+import { StoreModule } from '@ngrx/store';
+import {authReducer} from "./core/reducers/auth.reducer";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import {environment} from "../environments/environment";
     MainModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot({authType: authReducer})
   ],
   providers: [
     AngularFireAuth

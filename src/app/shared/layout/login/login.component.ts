@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AuthorizationService, AuthType} from "../../../core/services/authorization/authorization.service";
 import {fromEvent, Subscription} from "rxjs";
+import {Store} from "@ngrx/store";
+import {setLoginAuthType, setRegisterAuthType} from "../../../core/actions/auth.action";
 
 @Component({
   selector: 'album-login',
@@ -14,14 +16,15 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   toRegistrationButtonEventSubscription!: Subscription;
 
-  constructor(private authService: AuthorizationService) { }
+  constructor(private authService: AuthorizationService,
+              private store: Store<{authType: AuthType}>) { }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
     this.toRegistrationButtonEventSubscription = fromEvent(this.toRegistrationButton.nativeElement, 'click').subscribe(() => {
-      this.authService.authTypeSubject.next(AuthType.REGISTRATION);
+      this.store.dispatch(setRegisterAuthType());
     });
   }
 
