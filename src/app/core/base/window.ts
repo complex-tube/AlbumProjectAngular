@@ -5,17 +5,15 @@ import {
   OnDestroy,
   OnInit,
   Renderer2,
-  ViewChild
-} from "@angular/core";
-import {BaseComponent} from "./base-component";
-
+  ViewChild,
+} from '@angular/core';
+import { BaseComponent } from './base-component';
 
 @Directive()
-export abstract class Window extends BaseComponent implements OnInit, OnDestroy{
-
+export abstract class Window extends BaseComponent implements OnInit, OnDestroy {
   @ViewChild('outerWindow') set outerWindow(outerWindow: ElementRef) {
     if (outerWindow) {
-      outerWindow.nativeElement.style.marginTop = this.scrollTop + "px";
+      outerWindow.nativeElement.style.marginTop = this.scrollTop + 'px';
     }
   }
 
@@ -35,6 +33,7 @@ export abstract class Window extends BaseComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    console.log();
   }
 
   ngOnDestroy() {
@@ -43,6 +42,6 @@ export abstract class Window extends BaseComponent implements OnInit, OnDestroy{
 }
 
 export interface WindowConfig {
-  onWindowClosed: Function,
-  onSuccess?: Function
+  onWindowClosed: Function;
+  onSuccess?: Function;
 }
