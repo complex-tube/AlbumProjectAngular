@@ -35,7 +35,6 @@ export abstract class Window extends BaseComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-    console.log();
   }
 
   ngOnDestroy() {
