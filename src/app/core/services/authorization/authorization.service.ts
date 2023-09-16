@@ -22,10 +22,10 @@ export class AuthorizationService {
 
   constructor(
     private auth: AngularFireAuth,
-    private store: Store<{ authType: AuthType }>,
+    private store: Store,
   ) {
-    this.currentAuthType$ = this.store.select(AuthSelectors.authTypeState);
-    this.user$ = this.store.select(LoginSelectors.loginState);
+    this.currentAuthType$ = this.store.select(AuthSelectors.selectAuthTypeState);
+    this.user$ = this.store.select(LoginSelectors.selectLoginState);
   }
 
   getSignInObservable(email: string, password: string): Observable<UserCredential | null> {

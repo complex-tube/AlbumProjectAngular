@@ -25,8 +25,8 @@ import { loginReducer } from './core/reducers/login.reducer';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     StoreModule.forRoot({
-      authReducer: authReducer,
-      loginReducer: loginReducer,
+      authState: authReducer,
+      loginState: loginReducer,
     }),
   ],
   providers: [AngularFireAuth],

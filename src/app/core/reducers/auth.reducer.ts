@@ -4,6 +4,6 @@ import { AuthActions } from '../actions/auth.action';
 
 export const authReducer = createReducer(
   AuthType.LOGIN,
-  on(AuthActions.setRegisterAuthType, () => AuthType.REGISTRATION),
-  on(AuthActions.setLoginAuthType, () => AuthType.LOGIN),
+  on(AuthActions.setRegisterAuthType, (): AuthType => AuthType.REGISTRATION),
+  on(AuthActions.setLoginAuthType, (): AuthType => AuthType.LOGIN),
 );

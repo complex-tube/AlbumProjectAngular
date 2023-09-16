@@ -15,11 +15,14 @@
         "createDefaultProgram": true
       },
       "plugins": [
-        "import"
+        "import",
+        "html"
       ],
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:rxjs/recommended",
+        "plugin:@ngrx/recommended",
         "airbnb-typescript/base",
         "plugin:prettier/recommended"
       ],

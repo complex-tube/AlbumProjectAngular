@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { AuthType } from '../../../core/services/authorization/authorization.service';
 import { fromEvent, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../../core/actions/auth.action';
@@ -15,7 +14,7 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
 
   toLoginButtonEventSubscription!: Subscription;
 
-  constructor(private store: Store<{ authType: AuthType }>) {}
+  constructor(private store: Store) {}
 
   ngAfterViewInit(): void {
     this.toLoginButtonEventSubscription = fromEvent(

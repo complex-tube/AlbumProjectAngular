@@ -8,8 +8,11 @@ const initialUserState: User = {
 
 export const loginReducer = createReducer(
   initialUserState,
-  on(LoginActions.setUserCredentialsByLogin, (user, { uid }) => ({
-    ...user,
-    uid: uid,
-  })),
+  on(
+    LoginActions.setUserCredentialsByLogin,
+    (user, { uid }): User => ({
+      ...user,
+      uid: uid,
+    }),
+  ),
 );
