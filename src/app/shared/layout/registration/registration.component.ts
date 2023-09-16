@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 import { AuthType } from '../../../core/services/authorization/authorization.service';
 import { fromEvent, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { setLoginAuthType } from '../../../core/actions/auth.action';
+import { AuthActions } from '../../../core/actions/auth.action';
 
 @Component({
   selector: 'album-registration',
@@ -22,7 +22,7 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
       this.toLoginButton.nativeElement,
       'click',
     ).subscribe(() => {
-      this.store.dispatch(setLoginAuthType());
+      this.store.dispatch(AuthActions.setLoginAuthType());
     });
   }
 

@@ -1,31 +1,46 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat';
-import User = firebase.User;
 import { from, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import UserCredential = firebase.auth.UserCredential;
+import { AuthSelectors } from '../../selectors/auth.selector';
+import { User } from '../../models/user.model';
+import { LoginSelectors } from '../../selectors/login.selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorizationService {
-  user!: User | null;
+  signInUserCredential$!: Observable<UserCredential | null>;
+
+  registerUserCredential$!: Observable<UserCredential | void>;
 
   currentAuthType$!: Observable<AuthType>;
+
+  user$!: Observable<User>;
 
   constructor(
     private auth: AngularFireAuth,
     private store: Store<{ authType: AuthType }>,
   ) {
-    this.currentAuthType$ = this.store.select('authType');
+    this.currentAuthType$ = this.store.select(AuthSelectors.authTypeState);
+    this.user$ = this.store.select(LoginSelectors.loginState);
   }
 
-  signInUser(email: string, password: string): Observable<any> {
-    return from(this.auth.signInWithEmailAndPassword(email, password));
+  getSignInObservable(email: string, password: string): Observable<UserCredential | null> {
+    this.signInUserCredential$ = from(
+      this.auth
+        .signInWithEmailAndPassword(email, password)
+        .then((userCredentials) => userCredentials)
+        .catch(null),
+    );
+    return this.signInUserCredential$;
   }
 
-  registerUser(email: string, password: string): Observable<any> {
-    return from(this.auth.createUserWithEmailAndPassword(email, password));
+  getRegisterObservable(email: string, password: string): Observable<any> {
+    this.registerUserCredential$ = from(this.auth.createUserWithEmailAndPassword(email, password));
+    return this.registerUserCredential$;
   }
 }
 

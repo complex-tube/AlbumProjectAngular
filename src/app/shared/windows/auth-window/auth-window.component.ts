@@ -5,7 +5,6 @@ import {
   AuthType,
 } from '../../../core/services/authorization/authorization.service';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'album-auth-window',
@@ -21,10 +20,8 @@ export class AuthWindowComponent extends Window implements OnInit, OnDestroy {
   constructor(
     protected override renderer: Renderer2,
     private authService: AuthorizationService,
-    private store: Store<{ authType: AuthType }>,
   ) {
     super(renderer);
-    this.authService.currentAuthType$ = this.store.select('authType');
   }
 
   override ngOnInit(): void {
