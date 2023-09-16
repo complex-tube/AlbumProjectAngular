@@ -1,24 +1,28 @@
-import {Component, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {Window, WindowConfig} from "../../../core/base/window";
-import {AuthorizationService, AuthType} from "../../../core/services/authorization/authorization.service";
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
+import { Component, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Window, WindowConfig } from '../../../core/base/window';
+import {
+  AuthorizationService,
+  AuthType,
+} from '../../../core/services/authorization/authorization.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'album-auth-window',
   templateUrl: './auth-window.component.html',
-  styleUrls: ['./auth-window.component.scss']
+  styleUrls: ['./auth-window.component.scss'],
 })
 export class AuthWindowComponent extends Window implements OnInit, OnDestroy {
-
   @Input()
   override config!: LoginConfig;
 
   readonly AuthType = AuthType;
 
-  constructor(protected override renderer: Renderer2,
-              private authService: AuthorizationService,
-              private store: Store<{authType: AuthType}>) {
+  constructor(
+    protected override renderer: Renderer2,
+    private authService: AuthorizationService,
+    private store: Store<{ authType: AuthType }>,
+  ) {
     super(renderer);
     this.authService.currentAuthType$ = this.store.select('authType');
   }
@@ -36,6 +40,4 @@ export class AuthWindowComponent extends Window implements OnInit, OnDestroy {
   }
 }
 
-export interface LoginConfig extends WindowConfig {
-
-}
+export interface LoginConfig extends WindowConfig {}

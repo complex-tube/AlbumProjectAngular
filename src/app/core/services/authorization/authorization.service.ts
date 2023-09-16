@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import firebase from "firebase/compat";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat';
 import User = firebase.User;
-import {from, Observable} from "rxjs";
-import {Store} from "@ngrx/store";
+import { from, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthorizationService {
-
   user!: User | null;
 
   currentAuthType$!: Observable<AuthType>;
 
-  constructor(private auth: AngularFireAuth,
-              private store: Store<{authType: AuthType}>) {
+  constructor(
+    private auth: AngularFireAuth,
+    private store: Store<{ authType: AuthType }>,
+  ) {
     this.currentAuthType$ = this.store.select('authType');
   }
 
@@ -30,5 +31,5 @@ export class AuthorizationService {
 
 export enum AuthType {
   LOGIN,
-  REGISTRATION
+  REGISTRATION,
 }

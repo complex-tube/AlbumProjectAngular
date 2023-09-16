@@ -1,8 +1,7 @@
-import {Directive, HostListener} from "@angular/core";
+import { Directive, HostListener } from '@angular/core';
 
 @Directive()
 export abstract class BaseComponent {
-
   @HostListener('window:resize')
   private onWindowResize() {
     this.isMobile = window.innerWidth <= 425;
