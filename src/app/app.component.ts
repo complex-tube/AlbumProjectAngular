@@ -13,8 +13,10 @@ export class AppComponent extends BaseComponent {
   constructor(private authService: AuthorizationService) {
     super();
   }
-
-  getUserObservable(): Observable<User> {
-    return this.authService.user$;
+  getLoginUserObservable(): Observable<User> {
+    return this.authService.loginUser$;
+  }
+  getRegisterUserObservable(): Observable<User> {
+    return this.authService.registerUser$;
   }
 }

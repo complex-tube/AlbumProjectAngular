@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { filter, fromEvent, map, Subscription, switchMap } from 'rxjs';
+import { fromEvent, map, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../../core/actions/auth.actions';
 import { LoginActions } from '../../../core/actions/login.actions';
@@ -54,7 +54,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
             password: this.passwordInput.nativeElement.value,
           });
         }),
-        filter((userCredentials) => userCredentials != null),
         map((userCredentials) => userCredentials.user),
       )
       .subscribe((user) => {

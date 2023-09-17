@@ -1,4 +1,9 @@
 <album-header></album-header>
-<div>{{(getUserObservable() | async)?.uid}}</div>
+<div *ngIf='(getLoginUserObservable() | async)?.uid != ""'>
+  {{(getLoginUserObservable() | async)?.uid}}
+</div>
+<div *ngIf='(getRegisterUserObservable() | async)?.uid != ""'>
+  {{(getRegisterUserObservable() | async)?.uid}}
+</div>
 <album-cards-list></album-cards-list>
 <album-footer></album-footer>

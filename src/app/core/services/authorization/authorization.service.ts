@@ -4,12 +4,13 @@ import firebase from 'firebase/compat';
 import { from, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import UserCredential = firebase.auth.UserCredential;
-import { AuthSelectors } from '../../selectors/auth.selector';
+import { AuthSelectors } from '../../selectors/auth.selectors';
 import { User } from '../../models/user.model';
-import { LoginSelectors } from '../../selectors/login.selector';
+import { LoginSelectors } from '../../selectors/login.selectors';
 import { ApiService } from '../api/api.service';
 import { ApiError } from '../../types/api-error';
 import { AuthUserData } from '../../models/api/auth-user-data.model';
+import { RegistrationSelectors } from '../../selectors/registration.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,8 @@ export class AuthorizationService {
 
   currentAuthType$!: Observable<AuthType>;
 
-  user$!: Observable<User>;
+  loginUser$!: Observable<User>;
+  registerUser$!: Observable<User>;
 
   constructor(
     private auth: AngularFireAuth,
@@ -29,7 +31,8 @@ export class AuthorizationService {
     private apiService: ApiService,
   ) {
     this.currentAuthType$ = this.store.select(AuthSelectors.selectAuthTypeState);
-    this.user$ = this.store.select(LoginSelectors.selectLoginState);
+    this.loginUser$ = this.store.select(LoginSelectors.selectLoginState);
+    this.registerUser$ = this.store.select(RegistrationSelectors.selectRegistrationState);
   }
 
   login(data: AuthUserData, onError: ApiError): Observable<UserCredential> {

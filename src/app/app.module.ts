@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './core/reducers/auth.reducer';
 import { loginReducer } from './core/reducers/login.reducer';
+import { registrationReducer } from './core/reducers/registration.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { loginReducer } from './core/reducers/login.reducer';
     StoreModule.forRoot({
       authState: authReducer,
       loginState: loginReducer,
+      registrationState: registrationReducer,
     }),
   ],
   providers: [AngularFireAuth],
