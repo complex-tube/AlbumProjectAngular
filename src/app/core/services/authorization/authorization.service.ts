@@ -42,8 +42,8 @@ export class AuthorizationService {
   register(data: AuthUserData, onError: ApiError): Observable<UserCredential> {
     return this.apiService.requestHandler(
       this.auth.createUserWithEmailAndPassword(data.email, data.password),
-      onError
-    )
+      onError,
+    );
   }
 
   getSignInObservable(email: string, password: string): Observable<UserCredential | null> {

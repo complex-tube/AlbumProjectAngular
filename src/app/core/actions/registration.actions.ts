@@ -1,3 +1,1 @@
-export namespace RegistrationActions {
-
-}
+export namespace RegistrationActions {}
