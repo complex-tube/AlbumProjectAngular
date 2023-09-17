@@ -1,9 +1,9 @@
 <header>
   <div class="container">
-    <button class="login" (click)="onLoginButtonClick()">
+    <button class="login" (click)="onLoginButtonClick()" *ngIf='(getUserObservable() | async)?.uid === ""'>
       Войти
     </button>
   </div>
 </header>
 
-<album-auth-window *ngIf="loginConfig" [config]="loginConfig"></album-auth-window>
+<album-auth-window *ngIf='loginConfig && (getUserObservable() | async)?.uid === ""' [config]="loginConfig"></album-auth-window>

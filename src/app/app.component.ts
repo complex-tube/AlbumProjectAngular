@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from './core/base/base-component';
-import { Observable } from 'rxjs';
-import { User } from './core/models/user.model';
 import { AuthorizationService } from './core/services/authorization/authorization.service';
+import { map, Observable } from 'rxjs';
+import { User } from './core/models/user.model';
 
 @Component({
   selector: 'album-root',
@@ -17,4 +17,6 @@ export class AppComponent extends BaseComponent {
   getUserObservable(): Observable<User> {
     return this.authService.user$;
   }
+
+  protected readonly map = map;
 }

@@ -1,6 +1,8 @@
 import { Component, Output } from '@angular/core';
 import { LoginConfig } from '../../windows/auth-window/auth-window.component';
-import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { User } from '../../../core/models/user.model';
+import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
 
 @Component({
   selector: 'album-header',
@@ -11,7 +13,7 @@ export class HeaderComponent {
   @Output()
   loginConfig!: LoginConfig | null;
 
-  constructor(private store: Store) {}
+  constructor(private authService: AuthorizationService) {}
 
   onLoginButtonClick(): void {
     this.loginConfig = {
@@ -19,5 +21,9 @@ export class HeaderComponent {
         this.loginConfig = null;
       },
     };
+  }
+
+  getUserObservable(): Observable<User> {
+    return this.authService.user$;
   }
 }
