@@ -1,6 +1,6 @@
 import { UseCase } from '../base/usecase';
 import { Injectable } from '@angular/core';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthorizationService } from '../services/authorization/authorization.service';
 
 @Injectable({
