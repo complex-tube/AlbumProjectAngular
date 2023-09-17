@@ -23,6 +23,7 @@ export class AuthorizationService {
   currentAuthType$!: Observable<AuthType>;
 
   loginUser$!: Observable<User>;
+
   registerUser$!: Observable<User>;
 
   constructor(
