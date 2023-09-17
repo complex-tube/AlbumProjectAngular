@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { AuthType } from '../services/authorization/authorization.service';
-import { AuthActions } from '../actions/auth.action';
+import { AuthActions } from '../actions/auth.actions';
 
 export const authReducer = createReducer(
   AuthType.LOGIN,

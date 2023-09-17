@@ -7,6 +7,9 @@ import UserCredential = firebase.auth.UserCredential;
 import { AuthSelectors } from '../../selectors/auth.selector';
 import { User } from '../../models/user.model';
 import { LoginSelectors } from '../../selectors/login.selector';
+import { ApiService } from '../api/api.service';
+import { ApiError } from '../../types/api-error';
+import { AuthUserData } from '../../models/api/auth-user-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +26,24 @@ export class AuthorizationService {
   constructor(
     private auth: AngularFireAuth,
     private store: Store,
+    private apiService: ApiService,
   ) {
     this.currentAuthType$ = this.store.select(AuthSelectors.selectAuthTypeState);
     this.user$ = this.store.select(LoginSelectors.selectLoginState);
+  }
+
+  login(data: AuthUserData, onError: ApiError): Observable<UserCredential> {
+    return this.apiService.requestHandler(
+      this.auth.signInWithEmailAndPassword(data.email, data.password),
+      onError,
+    );
+  }
+
+  register(data: AuthUserData, onError: ApiError): Observable<UserCredential> {
+    return this.apiService.requestHandler(
+      this.auth.createUserWithEmailAndPassword(data.email, data.password),
+      onError
+    )
   }
 
   getSignInObservable(email: string, password: string): Observable<UserCredential | null> {

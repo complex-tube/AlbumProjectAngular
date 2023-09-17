@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { LoginActions } from '../actions/login.action';
+import { LoginActions } from '../actions/login.actions';
 import { User } from '../models/user.model';
 
 const initialUserState: User = {

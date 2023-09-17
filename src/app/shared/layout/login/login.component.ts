@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
-import { catchError, filter, fromEvent, map, of, Subscription, switchMap } from 'rxjs';
+import { filter, fromEvent, map, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '../../../core/actions/auth.action';
-import { LoginActions } from '../../../core/actions/login.action';
+import { AuthActions } from '../../../core/actions/auth.actions';
+import { LoginActions } from '../../../core/actions/login.actions';
+import { LoginUseCase } from '../../../core/usecases/login.usecase';
 
 @Component({
   selector: 'album-login',
@@ -29,31 +29,33 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private authService: AuthorizationService,
+    private loginUseCase: LoginUseCase,
   ) {}
 
   ngAfterViewInit(): void {
-    this.toRegistrationButtonEventSubscription = fromEvent(
-      this.toRegistrationButton.nativeElement,
-      'click',
-    ).subscribe(() => {
-      this.store.dispatch(AuthActions.setRegisterAuthType());
-    });
+    this.subscribeOnToRegistrationButtonEvent();
+    this.subscribeOnLoginButtonEvent();
+  }
 
+  ngOnDestroy(): void {
+    this.toRegistrationButtonEventSubscription.unsubscribe();
+    this.loginSubmitButtonEventSubscription.unsubscribe();
+  }
+
+  private subscribeOnLoginButtonEvent(): void {
     this.loginSubmitButtonEventSubscription = fromEvent(
       this.loginSubmitButton.nativeElement,
       'click',
     )
       .pipe(
         switchMap(() => {
-          return this.authService.getSignInObservable(
-            this.emailInput.nativeElement.value,
-            this.passwordInput.nativeElement.value,
-          );
+          return this.loginUseCase.invoke({
+            email: this.emailInput.nativeElement.value,
+            password: this.passwordInput.nativeElement.value,
+          });
         }),
-        catchError(() => of(null)),
         filter((userCredentials) => userCredentials != null),
-        map((userCredentials) => userCredentials!.user),
+        map((userCredentials) => userCredentials.user),
       )
       .subscribe((user) => {
         if (user != null) {
@@ -62,7 +64,12 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    this.toRegistrationButtonEventSubscription.unsubscribe();
+  private subscribeOnToRegistrationButtonEvent(): void {
+    this.toRegistrationButtonEventSubscription = fromEvent(
+      this.toRegistrationButton.nativeElement,
+      'click',
+    ).subscribe(() => {
+      this.store.dispatch(AuthActions.setRegisterAuthType());
+    });
   }
 }

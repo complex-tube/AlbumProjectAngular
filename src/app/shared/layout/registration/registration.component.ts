@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '../../../core/actions/auth.action';
+import { AuthActions } from '../../../core/actions/auth.actions';
 
 @Component({
   selector: 'album-registration',
