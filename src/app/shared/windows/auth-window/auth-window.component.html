@@ -1,0 +1,11 @@
+<div class="window">
+  <div class="background" (click)="config.onWindowClosed()"></div>
+  <div class="outer-window" #outerWindow>
+    <div class="inner-window">
+      <div class="window-container" [ngSwitch]="getCurrentAuthType() | async">
+        <album-login *ngSwitchCase="AuthType.LOGIN"></album-login>
+        <album-registration *ngSwitchCase="AuthType.REGISTRATION"></album-registration>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,10 @@
+.anchor:hover {
+  cursor: pointer;
+}
+
 * {
   padding: 0;
   margin: 0;
-  perspective: 500px;
 }
 * body {
   display: flex;

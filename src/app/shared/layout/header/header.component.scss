@@ -4,7 +4,6 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-
   min-height: 56px;
   background-color: black;
 
@@ -13,7 +12,7 @@ header {
     justify-content: right;
     min-width: base.$container-adaptive-full-hd-width;
 
-    .login {
+    button {
       height: 50px;
       width: 100px;
     }
