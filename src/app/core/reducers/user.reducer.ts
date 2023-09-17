@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { LoginActions } from '../actions/login.actions';
 import { User } from '../models/user.model';
-import { RegistrationActions } from '../actions/registration.actions';
+import { UserActions } from '../actions/user.actions';
 
 const initialUserState: User = {
   uid: '',
@@ -10,14 +9,21 @@ const initialUserState: User = {
 export const userReducer = createReducer(
   initialUserState,
   on(
-    LoginActions.setUserCredentialsByLogin,
+    UserActions.loginUser,
     (user, { uid }): User => ({
       ...user,
       uid: uid,
     }),
   ),
   on(
-    RegistrationActions.registerUser,
+    UserActions.registerUser,
+    (user, { uid }): User => ({
+      ...user,
+      uid: uid,
+    }),
+  ),
+  on(
+    UserActions.loginExistedUser,
     (user, { uid }): User => ({
       ...user,
       uid: uid,

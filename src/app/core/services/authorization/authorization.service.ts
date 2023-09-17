@@ -10,6 +10,8 @@ import { ApiService } from '../api/api.service';
 import { ApiError } from '../../types/api-error';
 import { AuthUserData } from '../../models/api/auth-user-data.model';
 import { UserSelectors } from '../../selectors/user.selectors';
+import Unsubscribe = firebase.Unsubscribe;
+import { UserActions } from '../../actions/user.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +28,9 @@ export class AuthorizationService {
   ) {
     this.currentAuthType$ = this.store.select(AuthSelectors.selectAuthTypeState);
     this.user$ = this.store.select(UserSelectors.selectUserState);
+    this.auth.setPersistence('session').then(() => {
+      console.log('session');
+    });
   }
 
   login(data: AuthUserData, onError: ApiError): Observable<UserCredential> {
@@ -38,6 +43,15 @@ export class AuthorizationService {
   register(data: AuthUserData, onError: ApiError): Observable<UserCredential> {
     return this.apiService.requestHandler(
       this.auth.createUserWithEmailAndPassword(data.email, data.password),
+      onError,
+    );
+  }
+
+  loginExisted({}, onError: ApiError): Observable<Unsubscribe> {
+    return this.apiService.requestHandler(
+      this.auth.onAuthStateChanged((user) =>
+        this.store.dispatch(UserActions.loginExistedUser({ uid: user != null ? user.uid : '' })),
+      ),
       onError,
     );
   }

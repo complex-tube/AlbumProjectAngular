@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { fromEvent, map, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '../../../core/actions/auth.actions';
+import { AuthTypeActions } from '../../../core/actions/auth-type.actions';
 import { RegisterUseCase } from '../../../core/usecases/register.usecase';
-import { RegistrationActions } from '../../../core/actions/registration.actions';
+import { UserActions } from '../../../core/actions/user.actions';
 
 @Component({
   selector: 'album-registration',
@@ -37,7 +37,7 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
       this.toLoginButton.nativeElement,
       'click',
     ).subscribe(() => {
-      this.store.dispatch(AuthActions.setLoginAuthType());
+      this.store.dispatch(AuthTypeActions.setLoginAuthType());
     });
 
     this.registrationSubmitButtonEventSubscription = fromEvent(
@@ -55,7 +55,7 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
       )
       .subscribe((user) => {
         if (user) {
-          this.store.dispatch(RegistrationActions.registerUser({ uid: user.uid }));
+          this.store.dispatch(UserActions.registerUser({ uid: user.uid }));
         }
       });
   }
