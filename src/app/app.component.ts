@@ -14,11 +14,7 @@ export class AppComponent extends BaseComponent {
     super();
   }
 
-  getLoginUserObservable(): Observable<User> {
-    return this.authService.loginUser$;
-  }
-
-  getRegisterUserObservable(): Observable<User> {
-    return this.authService.registerUser$;
+  getUserObservable(): Observable<User> {
+    return this.authService.user$;
   }
 }

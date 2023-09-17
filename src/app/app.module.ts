@@ -11,9 +11,8 @@ import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/aut
 
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
-import { authReducer } from './core/reducers/auth.reducer';
-import { loginReducer } from './core/reducers/login.reducer';
-import { registrationReducer } from './core/reducers/registration.reducer';
+import { authTypeReducer } from './core/reducers/auth-type.reducer';
+import { userReducer } from './core/reducers/user.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,9 +25,8 @@ import { registrationReducer } from './core/reducers/registration.reducer';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     StoreModule.forRoot({
-      authState: authReducer,
-      loginState: loginReducer,
-      registrationState: registrationReducer,
+      authState: authTypeReducer,
+      userState: userReducer,
     }),
   ],
   providers: [AngularFireAuth],
