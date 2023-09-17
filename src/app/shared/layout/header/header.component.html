@@ -3,6 +3,9 @@
     <button class="login" (click)="onLoginButtonClick()" *ngIf='(getUserObservable() | async)?.uid === ""'>
       Войти
     </button>
+    <button class='logout' (click)="onLogoutButtonClick()" *ngIf='(getUserObservable() | async)?.uid !== ""'>
+      Выйти
+    </button>
   </div>
 </header>
 

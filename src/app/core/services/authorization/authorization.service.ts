@@ -47,13 +47,17 @@ export class AuthorizationService {
     );
   }
 
-  loginExisted({}, onError: ApiError): Observable<Unsubscribe> {
+  loginExisted(onError: ApiError): Observable<Unsubscribe> {
     return this.apiService.requestHandler(
       this.auth.onAuthStateChanged((user) =>
         this.store.dispatch(UserActions.loginExistedUser({ uid: user != null ? user.uid : '' })),
       ),
       onError,
     );
+  }
+
+  logout(onError: ApiError): Observable<void> {
+    return this.apiService.requestHandler(this.auth.signOut(), onError);
   }
 }
 

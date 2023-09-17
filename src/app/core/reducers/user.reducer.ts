@@ -29,4 +29,11 @@ export const userReducer = createReducer(
       uid: uid,
     }),
   ),
+  on(
+    UserActions.logoutUser,
+    (user, { uid }): User => ({
+      ...user,
+      uid: uid,
+    }),
+  ),
 );

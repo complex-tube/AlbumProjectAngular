@@ -10,4 +10,6 @@ export namespace UserActions {
     '[App] Login Existed User',
     props<{ uid: string }>(),
   );
+
+  export const logoutUser = createAction('[Header Layout] Logout User', props<{ uid: string }>());
 }

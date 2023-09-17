@@ -15,7 +15,7 @@ export class LoginExistedUserUseCase extends UseCase {
 
   invoke(): Observable<Unsubscribe> {
     return this.authService
-      .loginExisted({}, (error) => {
+      .loginExisted((error) => {
         console.log(error);
       })
       .pipe(tap((item) => console.log(item)));
