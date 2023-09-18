@@ -5,6 +5,17 @@ $adaptive-full-hd-coefficient-height: 100 / 1080 / 100 * 100vh;
 // Adaptive container width
 $container-adaptive-full-hd-width: $adaptive-full-hd-coefficient-width * 1280;
 
+// Adaptive card size
+$card-adaptive-height-full-hd: $adaptive-full-hd-coefficient-height * 107 * 3;
+$card-adaptive-width-full-hd: $adaptive-full-hd-coefficient-width * 88 * 3;
+
+// Adaptive image in card size
+$card-image-adaptive-height-full-hd: $adaptive-full-hd-coefficient-height * 79 * 3;
+$card-image-adaptive-width-full-hd: $adaptive-full-hd-coefficient-width * 79 * 3;
+
+// Adaptive margin top
+$content-adaptive-margin-top: $adaptive-full-hd-coefficient-height * 4.5 * 3;
+
 // Unified margin
 $unified-margin-bottom: 100px;
 
