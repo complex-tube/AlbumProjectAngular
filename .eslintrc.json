@@ -42,7 +42,8 @@
             "prefix": "album",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "import/no-extraneous-dependencies": "off"
       }
     },
     {

@@ -116,8 +116,7 @@
       }
     }
   },
-  "defaultProject": "AlbumProjectAngular",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "analytics": "a7f8b12a-e529-4c6f-9fa2-dfbbfe0b9783"
   }
 }
