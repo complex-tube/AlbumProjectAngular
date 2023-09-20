@@ -1,11 +1,20 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 export namespace CardsActions {
-  export const getImages = createAction('[Cards List] Get Images');
-  export const createImagesFolder = createAction(
-    '[Register Window] Create Image Folder For New User',
+  export const getCards = createAction(
+    '[Cards List] Get Cards',
+    props<{
+      cards: {
+        id: number;
+        title: string;
+        description: string;
+        image: {
+          cardId: number;
+          name: string;
+          path: string;
+          url: string;
+        };
+      }[];
+    }>(),
   );
-  export const uploadImage = createAction('[Cards List] Upload Image');
-  export const deleteImage = createAction('[Cards List] Delete Image');
-  export const editImage = createAction('[Card Edit Window] Edit Image');
 }

@@ -4,7 +4,6 @@ import { AuthorizationService } from './core/services/authorization/authorizatio
 import { Observable } from 'rxjs';
 import { User } from './core/models/user.model';
 import { LoginExistedUserUseCase } from './core/usecases/login-existed-user.usecase';
-import { StorageService } from './core/services/storage/storage.service';
 
 @Component({
   selector: 'album-root',
@@ -14,7 +13,6 @@ import { StorageService } from './core/services/storage/storage.service';
 export class AppComponent extends BaseComponent implements OnInit {
   constructor(
     private authService: AuthorizationService,
-    private storageService: StorageService,
     private loginExistedUserUseCase: LoginExistedUserUseCase,
   ) {
     super();
@@ -22,7 +20,6 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.loginExistedUserUseCase.invoke();
-    // this.storageService.getListOfSMTH();
   }
 
   getUserObservable(): Observable<User> {

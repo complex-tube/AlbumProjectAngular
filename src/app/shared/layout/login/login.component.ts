@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AuthTypeActions } from '../../../core/actions/auth-type.actions';
 import { LoginUseCase } from '../../../core/usecases/login.usecase';
 import { UserActions } from '../../../core/actions/user.actions';
+import { StorageService } from '../../../core/services/storage/storage.service';
 
 @Component({
   selector: 'album-login',
@@ -30,6 +31,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   constructor(
     private store: Store,
     private loginUseCase: LoginUseCase,
+    private storageService: StorageService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -59,6 +61,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       .subscribe((user) => {
         if (user != null) {
           this.store.dispatch(UserActions.loginUser({ uid: user.uid }));
+          this.storageService.getListOfCards();
         }
       });
   }

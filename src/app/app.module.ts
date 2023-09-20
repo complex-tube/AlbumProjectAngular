@@ -14,6 +14,7 @@ import { authTypeReducer } from './core/reducers/auth-type.reducer';
 import { userReducer } from './core/reducers/user.reducer';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { cardsReducer } from './core/reducers/cards.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     StoreModule.forRoot({
       authState: authTypeReducer,
       userState: userReducer,
+      cardsState: cardsReducer,
     }),
   ],
   providers: [],

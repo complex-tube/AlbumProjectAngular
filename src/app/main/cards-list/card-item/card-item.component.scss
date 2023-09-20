@@ -14,8 +14,13 @@
     width: base.$card-image-adaptive-width-full-hd;
   }
 
-  .img {
+  .image {
     height: base.$card-image-adaptive-height-full-hd;
     background-color: coral;
+
+    img {
+      height: base.$card-image-adaptive-height-full-hd;
+      width: base.$card-image-adaptive-width-full-hd;
+    }
   }
 }
