@@ -1,5 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Card } from './models/card';
+import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../core/services/storage/storage.service';
+import { Card } from '../../core/models/card.model';
+import { filter, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { CardsSelectors } from '../../core/selectors/cards.selectors';
+import { CardsState } from '../../core/reducers/cards.reducer';
 
 @Component({
   selector: 'album-cards-list',
@@ -7,16 +12,26 @@ import { Card } from './models/card';
   styleUrls: ['./cards-list.component.scss'],
 })
 export class CardsListComponent implements OnInit {
-  @Input()
-  cardOffset!: number;
+  cards$!: Observable<CardsState>;
 
   cards: Card[] = [];
 
+  constructor(
+    private storageService: StorageService,
+    private store: Store,
+  ) {
+    this.storageService.getListOfCards();
+    this.store
+      .select(CardsSelectors.selectCards)
+      .pipe(filter((state) => state.cards.length != 0))
+      .subscribe((state) => {
+        console.log(state.cards);
+      });
+  }
+
   ngOnInit(): void {
-    this.cards.push({ name: 'Lesha', description: 'Lesha' });
-    this.cards.push({ name: 'Lesha', description: 'Lesha' });
-    this.cards.push({ name: 'Lesha', description: 'Lesha' });
-    this.cards.push({ name: 'Lesha', description: 'Lesha' });
-    this.cards.push({ name: 'Lesha', description: 'Lesha' });
+    this.cards$ = this.store
+      .select(CardsSelectors.selectCards)
+      .pipe(filter((state) => state.cards.length != 0));
   }
 }

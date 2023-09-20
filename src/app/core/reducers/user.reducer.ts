@@ -4,6 +4,8 @@ import { UserActions } from '../actions/user.actions';
 
 const initialUserState: User = {
   uid: '',
+  email: '',
+  cardsList: [],
 };
 
 export const userReducer = createReducer(

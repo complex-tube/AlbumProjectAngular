@@ -1,7 +1,10 @@
 <main>
   <div class="container">
     <ul>
-      <album-card-item *ngFor="let cardValue of cards" [card]="cardValue"></album-card-item>
+      <album-card-item *ngFor="let cardValue of (cards$ | async)?.cards" [card]="cardValue"></album-card-item>
+      <button class='add-card' *ngIf='(cards$ | async)?.cards?.length !== 0'>
+        Add Another Card
+      </button>
     </ul>
   </div>
 </main>

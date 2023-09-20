@@ -1,32 +1,26 @@
 @use "src/base";
 
-// Adaptive card size
-$card-adaptive-height-full-hd: base.$adaptive-full-hd-coefficient-height * 107 * 3;
-$card-adaptive-width-full-hd: base.$adaptive-full-hd-coefficient-width * 88 * 3;
-
-// Adaptive image in card size
-$card-image-adaptive-height-full-hd: base.$adaptive-full-hd-coefficient-height * 79 * 3;
-$card-image-adaptive-width-full-hd: base.$adaptive-full-hd-coefficient-width * 79 * 3;
-
-// Adaptive margin top
-$content-adaptive-margin-top: base.$adaptive-full-hd-coefficient-height * 4.5 * 3;
-
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: $card-adaptive-height-full-hd;
-  width: $card-adaptive-width-full-hd;
+  height: base.$card-adaptive-height-full-hd;
+  width: base.$card-adaptive-width-full-hd;
   background-color: wheat;
   transition: all 0.1s linear;
 
   .content {
-    margin-top: $content-adaptive-margin-top;
-    width: $card-image-adaptive-width-full-hd;
+    margin-top: base.$content-adaptive-margin-top;
+    width: base.$card-image-adaptive-width-full-hd;
   }
 
-  .img {
-    height: $card-image-adaptive-height-full-hd;
+  .image {
+    height: base.$card-image-adaptive-height-full-hd;
     background-color: coral;
+
+    img {
+      height: base.$card-image-adaptive-height-full-hd;
+      width: base.$card-image-adaptive-width-full-hd;
+    }
   }
 }

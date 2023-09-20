@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Card } from '../models/card';
+import { Card } from '../../../core/models/card.model';
 
 @Component({
   selector: 'album-card-item',
@@ -8,7 +8,7 @@ import { Card } from '../models/card';
 })
 export class CardItemComponent {
   @Input()
-  card: Card | null = null;
+  card!: Card;
 
   @ViewChild('cardElement')
   cardElement!: ElementRef;
