@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { fromEvent, map, Subscription, switchMap } from 'rxjs';
+import { fromEvent, map, Subscription, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthTypeActions } from '../../../core/actions/auth-type.actions';
 import { LoginUseCase } from '../../../core/usecases/login.usecase';
 import { UserActions } from '../../../core/actions/user.actions';
-import { StorageService } from '../../../core/services/storage/storage.service';
+import { GetCardsUseCase } from '../../../core/usecases/get-cards.usecase';
+import { CardsActions } from '../../../core/actions/cards.actions';
 
 @Component({
   selector: 'album-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   constructor(
     private store: Store,
     private loginUseCase: LoginUseCase,
-    private storageService: StorageService,
+    private getPicturesUrlsUseCase: GetCardsUseCase,
   ) {}
 
   ngAfterViewInit(): void {
@@ -57,13 +58,19 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
           });
         }),
         map((userCredentials) => userCredentials.user),
+        tap((user) => {
+          if (user != null) {
+            this.store.dispatch(UserActions.loginUser({ uid: user.uid }));
+          }
+        }),
+        switchMap(() => {
+          return this.getPicturesUrlsUseCase.invoke();
+        }),
+        tap((cards) => {
+          this.store.dispatch(CardsActions.getCards({ cards: cards }));
+        }),
       )
-      .subscribe((user) => {
-        if (user != null) {
-          this.store.dispatch(UserActions.loginUser({ uid: user.uid }));
-          this.storageService.getListOfCards();
-        }
-      });
+      .subscribe();
   }
 
   private subscribeOnToRegistrationButtonEvent(): void {
