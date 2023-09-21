@@ -18,6 +18,6 @@ export class LoginExistedUserUseCase extends UseCase {
       .loginExisted((error) => {
         console.log(error);
       })
-      .pipe(tap((item) => console.log(item)));
+      .pipe(tap(() => console.log()));
   }
 }

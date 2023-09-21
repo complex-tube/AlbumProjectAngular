@@ -1,10 +1,11 @@
 import { UseCase } from '../base/usecase';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import firebase from 'firebase/compat';
 import UserCredential = firebase.auth.UserCredential;
 import { AuthorizationService } from '../services/authorization/authorization.service';
 import { AuthUserData } from '../models/api/auth-user-data.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class RegisterUseCase extends UseCase {
     super();
   }
 
-  invoke(data: AuthUserData): Observable<UserCredential> {
+  invoke(data: AuthUserData): Observable<User> {
     return this.authService
       .register(data, (error) => {
         console.log(error);
@@ -23,6 +24,19 @@ export class RegisterUseCase extends UseCase {
         tap((userCredentials) => {
           console.log(userCredentials);
         }),
+        map((userCredential): User => {
+          if (userCredential.user && userCredential.user.email) {
+            return {
+              uid: userCredential.user.uid,
+              email: userCredential.user.email
+            }
+          } else {
+            return {
+              uid: '',
+              email: ''
+            }
+          }
+        })
       );
   }
 }

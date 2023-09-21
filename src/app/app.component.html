@@ -1,3 +1,3 @@
 <album-header></album-header>
-<album-cards-list *ngIf='(getUserObservable() | async)?.uid !== ""'></album-cards-list>
+<album-cards-list *ngIf='(user$ | async)?.uid !== ""'></album-cards-list>
 <album-footer></album-footer>

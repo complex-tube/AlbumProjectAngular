@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat';
-import { Observable } from 'rxjs';
+import { filter, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import UserCredential = firebase.auth.UserCredential;
 import { AuthSelectors } from '../../selectors/auth.selectors';
@@ -12,6 +12,8 @@ import { AuthUserData } from '../../models/api/auth-user-data.model';
 import { UserSelectors } from '../../selectors/user.selectors';
 import Unsubscribe = firebase.Unsubscribe;
 import { UserActions } from '../../actions/user.actions';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { StoreService } from '../store/store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,15 +21,12 @@ import { UserActions } from '../../actions/user.actions';
 export class AuthorizationService {
   currentAuthType$!: Observable<AuthType>;
 
-  user$!: Observable<User>;
-
   constructor(
     private auth: AngularFireAuth,
     private store: Store,
     private apiService: ApiService,
   ) {
     this.currentAuthType$ = this.store.select(AuthSelectors.selectAuthTypeState);
-    this.user$ = this.store.select(UserSelectors.selectUserState);
     this.auth.setPersistence('session').then(() => {
       console.log('session');
     });
@@ -49,8 +48,12 @@ export class AuthorizationService {
 
   loginExisted(onError: ApiError): Observable<Unsubscribe> {
     return this.apiService.requestHandler(
-      this.auth.onAuthStateChanged((user) =>
-        this.store.dispatch(UserActions.loginExistedUser({ uid: user != null ? user.uid : '' })),
+      this.auth.onAuthStateChanged((user) => {
+        console.log('auth service login existed user');
+        this.store.dispatch(UserActions.loginExistedUser({
+          uid: user != null ? user.uid : '',
+          email: user != null && user.email ? user.email: ''}));
+        }
       ),
       onError,
     );

@@ -19,4 +19,11 @@ export const cardsReducer = createReducer(
       cards: cards,
     }),
   ),
+  on(
+    CardsActions.clearCards,
+    (_cards): CardsState => ({
+      ..._cards,
+      cards: []
+    }),
+  ),
 );

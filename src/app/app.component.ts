@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from './core/base/base-component';
 import { AuthorizationService } from './core/services/authorization/authorization.service';
-import { filter, Observable, switchMap } from 'rxjs';
+import { distinct, filter, first, Observable, switchMap, tap } from 'rxjs';
 import { User } from './core/models/user.model';
 import { LoginExistedUserUseCase } from './core/usecases/login-existed-user.usecase';
-import { GetCardsUseCase } from './core/usecases/get-cards.usecase';
-import { CardsActions } from './core/actions/cards.actions';
 import { Store } from '@ngrx/store';
+import { CardsActions } from './core/actions/cards.actions';
+import { StoreService } from './core/services/store/store.service';
+import { UserSelectors } from './core/selectors/user.selectors';
+import { UserActions } from './core/actions/user.actions';
 
 @Component({
   selector: 'album-root',
@@ -14,30 +16,43 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent extends BaseComponent implements OnInit {
+
+  user$!: Observable<User>
   constructor(
-    private authService: AuthorizationService,
     private loginExistedUserUseCase: LoginExistedUserUseCase,
-    private getPicturesUrlsUseCase: GetCardsUseCase,
     private store: Store,
+    private storeService: StoreService
   ) {
     super();
+    console.log('app component');
+    this.user$ = this.store.select(UserSelectors.selectUserState)
+      .pipe(
+        tap(() => {
+          console.log('app component user observable');
+        })
+      );
+    this.user$
+      .pipe(
+        switchMap((user) => {
+          return this.storeService.checkExistedUser(user.uid)
+        }),
+        filter((isExisted) => !isExisted),
+        switchMap(() => {
+          return this.store.select(UserSelectors.selectUserState)
+            .pipe(filter((user) => user.uid != ''));
+        })
+      )
+      .subscribe((user) => {
+      console.log('app component set user')
+      this.storeService.setUser(
+        user.uid,
+        {uid: user.uid, email: user.email},
+        () => {}
+      );
+    });
+    this.loginExistedUserUseCase.invoke().subscribe();
   }
 
   ngOnInit() {
-    this.loginExistedUserUseCase.invoke();
-    this.getUserObservable()
-      .pipe(
-        filter((user) => user.uid != ''),
-        switchMap(() => {
-          return this.getPicturesUrlsUseCase.invoke();
-        }),
-      )
-      .subscribe((cards) => {
-        this.store.dispatch(CardsActions.getCards({ cards: cards }));
-      });
-  }
-
-  getUserObservable(): Observable<User> {
-    return this.authService.user$;
   }
 }

@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { fromEvent, map, Subscription, switchMap } from 'rxjs';
+import { filter, fromEvent, map, Subscription, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthTypeActions } from '../../../core/actions/auth-type.actions';
 import { RegisterUseCase } from '../../../core/usecases/register.usecase';
 import { UserActions } from '../../../core/actions/user.actions';
+import { StoreService } from '../../../core/services/store/store.service';
+import { UserSelectors } from '../../../core/selectors/user.selectors';
 
 @Component({
   selector: 'album-registration',
@@ -30,15 +32,18 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
   constructor(
     private store: Store,
     private registerUseCase: RegisterUseCase,
+    private storeService: StoreService
   ) {}
 
   ngAfterViewInit(): void {
     this.toLoginButtonEventSubscription = fromEvent(
       this.toLoginButton.nativeElement,
       'click',
-    ).subscribe(() => {
-      this.store.dispatch(AuthTypeActions.setLoginAuthType());
-    });
+    ).pipe(
+      tap(() => {
+        this.store.dispatch(AuthTypeActions.setLoginAuthType());
+      })
+    ).subscribe();
 
     this.registrationSubmitButtonEventSubscription = fromEvent(
       this.registrationSubmitButton.nativeElement,
@@ -51,13 +56,22 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
             password: this.passwordInput.nativeElement.value,
           });
         }),
-        map((userCredential) => userCredential.user),
+        filter((user) => user.uid != ''),
+        tap((user) => {
+          this.store.dispatch(UserActions.registerUser({uid: user.uid, email: user.email}));
+        }),
+        switchMap(() => {
+          return this.store.select(UserSelectors.selectUserState);
+        }),
+        tap((user) => {
+          console.log(user);
+          this.storeService.setUser(user.uid, {
+            uid: user.uid,
+            email: user.email
+          }, () => {});
+        })
       )
-      .subscribe((user) => {
-        if (user) {
-          this.store.dispatch(UserActions.registerUser({ uid: user.uid }));
-        }
-      });
+      .subscribe();
   }
 
   ngOnDestroy(): void {
