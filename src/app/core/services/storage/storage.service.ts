@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
+import { catchError, EMPTY } from 'rxjs';
 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
-import { Store } from '@ngrx/store';
-import { Card } from '../../models/card.model';
-import { CardsSelectors } from '../../selectors/cards.selectors';
-import { CardsState } from '../../reducers/cards.reducer';
 import { ApiService } from '../api/api.service';
 import { ApiError } from '../../types/api-error';
 
@@ -17,7 +13,6 @@ export class StorageService {
 
   constructor(
     private storage: AngularFireStorage,
-    private store: Store,
     private apiService: ApiService
   ) {
   }

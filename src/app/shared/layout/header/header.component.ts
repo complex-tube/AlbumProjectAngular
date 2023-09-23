@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginConfig } from '../../windows/auth-window/auth-window.component';
 import { Observable } from 'rxjs';
 import { User } from '../../../core/models/user.model';

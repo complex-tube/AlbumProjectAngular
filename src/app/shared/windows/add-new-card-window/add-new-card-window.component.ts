@@ -1,18 +1,12 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Window, WindowConfig } from '../../../core/base/window';
-import { LoginConfig } from '../auth-window/auth-window.component';
 import { Store } from '@ngrx/store';
-import { from, map, Observable, Subscription, switchAll, switchMap } from 'rxjs';
+import { map, Observable, Subscription, switchMap } from 'rxjs';
 import { User } from '../../../core/models/user.model';
 import { UserSelectors } from '../../../core/selectors/user.selectors';
-import { StorageService } from '../../../core/services/storage/storage.service';
 import { Card } from '../../../core/models/card.model';
 import { CardsSelectors } from '../../../core/selectors/cards.selectors';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { user } from '@angular/fire/auth';
 import { UploadCardToStorageUseCase } from '../../../core/usecases/upload-card-to-storage.usecase';
-import { StoreService } from '../../../core/services/store/store.service';
-import { CardsActions } from '../../../core/actions/cards.actions';
 import { GetCardUrlUseCase } from '../../../core/usecases/get-card-url.usecase';
 import { PostUserCardUseCase } from '../../../core/usecases/post-user-card.usecase';
 
