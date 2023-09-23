@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../../core/models/user.model';
-import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
 import { LogoutUseCase } from '../../../core/usecases/logout.usecase';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../../core/actions/user.actions';

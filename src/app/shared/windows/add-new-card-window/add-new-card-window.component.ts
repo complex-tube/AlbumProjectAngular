@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Window, WindowConfig } from '../../../core/base/window';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Window } from '../../../core/base/window';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
 import { User } from '../../../core/models/user.model';

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Card } from '../../core/models/card.model';
 import { filter, map, Observable, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
