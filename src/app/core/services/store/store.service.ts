@@ -73,31 +73,6 @@ export class StoreService {
     });
   }
 
-  updateUserCard(uid: string, index: number) {
-
-  }
-
-  deleteUserCard(uid: string, index: number) {
-
-  }
-
-  // getUserCardsList(uid: string) {
-  //   return this.firestore.doc(`users/${uid}`).collection('/cards').get()
-  //     .pipe(
-  //       tap((data) => {
-  //         data.forEach(d => {
-  //           console.log(d);
-  //         })
-  //       })
-  //       // map((data): Card[] => {
-  //       //   const cards: Card[] = [];
-  //       //   data.forEach((d) => {
-  //       //     console.log(d.data());
-  //       //   })
-  //       // })
-  //     )
-  // }
-
   getUserCardsList(uid: string, onError: ApiError) {
     console.log(`users/${uid}/cards`);
     return this.firestore.doc(`users/${uid}`).collection('/cards').valueChanges()
