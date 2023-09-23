@@ -40,18 +40,25 @@ export class StoreService {
           return {
             uid: get.uid,
             email: get.email,
+            isUserAlreadyWasExisted: true,
           };
         }),
       );
   }
 
   setUser(uid: string, data: User, onError: ApiError): Observable<void> {
-    return this.apiService.requestHandler(this.firestore.doc(`users/${uid}`).set(data), onError);
+    return this.apiService.requestHandler(
+      () => {
+        return this.firestore.doc(`users/${uid}`).set(data)
+      },
+      onError);
   }
 
   updateUserEmail(uid: string, email: { email: string }, onError: ApiError) {
     return this.apiService.requestHandler(
-      this.firestore.doc(`users/${uid}`).update(email),
+      () => {
+        return this.firestore.doc(`users/${uid}`).update(email)
+      },
       onError,
     );
   }
@@ -59,7 +66,9 @@ export class StoreService {
   setUserCardsList(uid: string, cardsList: Card[]) {
     cardsList.forEach((card, index) => {
       this.apiService.requestHandler(
-        this.firestore.doc(`users/${uid}/cards/${index}`).set(card),
+        () => {
+          return this.firestore.doc(`users/${uid}/cards/${index}`).set(card)
+        },
         () => {}
       ).subscribe(() => {
         console.log('success');

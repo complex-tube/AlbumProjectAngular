@@ -5,6 +5,7 @@ import { UserActions } from '../actions/user.actions';
 const initialUserState: User = {
   uid: '',
   email: '',
+  isUserAlreadyWasExisted: false
 };
 
 export const userReducer = createReducer(
@@ -14,7 +15,8 @@ export const userReducer = createReducer(
     (user, { uid, email }): User => ({
       ...user,
       uid: uid,
-      email: email
+      email: email,
+      isUserAlreadyWasExisted: true,
     }),
   ),
   on(
@@ -22,7 +24,8 @@ export const userReducer = createReducer(
     (user, { uid, email }): User => ({
       ...user,
       uid: uid,
-      email: email
+      email: email,
+      isUserAlreadyWasExisted: true,
     }),
   ),
   on(
@@ -30,7 +33,8 @@ export const userReducer = createReducer(
     (user, { uid, email }): User => ({
       ...user,
       uid: uid,
-      email: email
+      email: email,
+      isUserAlreadyWasExisted: true,
     }),
   ),
   on(
@@ -38,7 +42,8 @@ export const userReducer = createReducer(
     (user, { uid, email }): User => ({
       ...user,
       uid: uid,
-      email: email
+      email: email,
+      isUserAlreadyWasExisted: true,
     }),
   )
 );

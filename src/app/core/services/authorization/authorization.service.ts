@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat';
-import { filter, Observable, tap } from 'rxjs';
+import { filter, map, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import UserCredential = firebase.auth.UserCredential;
 import { AuthSelectors } from '../../selectors/auth.selectors';
@@ -34,33 +34,46 @@ export class AuthorizationService {
 
   login(data: AuthUserData, onError: ApiError): Observable<UserCredential> {
     return this.apiService.requestHandler(
-      this.auth.signInWithEmailAndPassword(data.email, data.password),
+      () => {
+        console.log(data);
+        return this.auth.signInWithEmailAndPassword(data.email, data.password)
+      },
       onError,
     );
   }
 
   register(data: AuthUserData, onError: ApiError): Observable<UserCredential> {
     return this.apiService.requestHandler(
-      this.auth.createUserWithEmailAndPassword(data.email, data.password),
+      () => {
+        return this.auth.createUserWithEmailAndPassword(data.email, data.password)
+      },
       onError,
     );
   }
 
-  loginExisted(onError: ApiError): Observable<Unsubscribe> {
+  loginExisted(onError: ApiError) {
     return this.apiService.requestHandler(
-      this.auth.onAuthStateChanged((user) => {
-        console.log('auth service login existed user');
-        this.store.dispatch(UserActions.loginExistedUser({
-          uid: user != null ? user.uid : '',
-          email: user != null && user.email ? user.email: ''}));
-        }
-      ),
-      onError,
-    );
+      () => {
+        return this.auth.onAuthStateChanged((authUser) => {
+          if (authUser) {
+            const userExistedSubscription = this.store.select(UserSelectors.selectUserState)
+              .subscribe((user) => {
+                if (!user.isUserAlreadyWasExisted && authUser.email) {
+                  this.store.dispatch(UserActions.loginExistedUser({uid: authUser.uid, email: authUser.email}));
+                }
+              });
+            userExistedSubscription.unsubscribe();
+          }
+        })
+      }, onError);
   }
 
   logout(onError: ApiError): Observable<void> {
-    return this.apiService.requestHandler(this.auth.signOut(), onError);
+    return this.apiService.requestHandler(
+      () => {
+        return this.auth.signOut()
+      },
+      onError);
   }
 }
 

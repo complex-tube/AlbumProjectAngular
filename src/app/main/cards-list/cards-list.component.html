@@ -2,7 +2,7 @@
   <div class="container">
     <ul>
       <album-card-item *ngFor="let cardValue of (cards$ | async)" [card]="cardValue"></album-card-item>
-      <button class='add-card' *ngIf='(cards$ | async)?.length !== 0'>
+      <button class='add-card' *ngIf="(user$ | async)?.uid !== ''">
         Add Another Card
       </button>
     </ul>

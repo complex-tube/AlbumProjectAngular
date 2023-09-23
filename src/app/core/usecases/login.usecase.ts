@@ -26,12 +26,14 @@ export class LoginUseCase extends UseCase {
           if (userCredential.user && userCredential.user.email) {
             return {
               uid: userCredential.user.uid,
-              email: userCredential.user.email
+              email: userCredential.user.email,
+              isUserAlreadyWasExisted: true,
             }
           } else {
             return {
               uid: '',
-              email: ''
+              email: '',
+              isUserAlreadyWasExisted: true,
             }
           }
         })

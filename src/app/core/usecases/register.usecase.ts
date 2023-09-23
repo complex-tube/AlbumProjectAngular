@@ -21,19 +21,18 @@ export class RegisterUseCase extends UseCase {
         console.log(error);
       })
       .pipe(
-        tap((userCredentials) => {
-          console.log(userCredentials);
-        }),
         map((userCredential): User => {
           if (userCredential.user && userCredential.user.email) {
             return {
               uid: userCredential.user.uid,
-              email: userCredential.user.email
+              email: userCredential.user.email,
+              isUserAlreadyWasExisted: true,
             }
           } else {
             return {
               uid: '',
-              email: ''
+              email: '',
+              isUserAlreadyWasExisted: true
             }
           }
         })

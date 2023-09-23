@@ -10,6 +10,7 @@ import { AuthorizationService } from '../../core/services/authorization/authoriz
 import { UserSelectors } from '../../core/selectors/user.selectors';
 import { CardsActions } from '../../core/actions/cards.actions';
 import { GetCardsUseCase } from '../../core/usecases/get-cards.usecase';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'album-cards-list',
@@ -17,6 +18,8 @@ import { GetCardsUseCase } from '../../core/usecases/get-cards.usecase';
   styleUrls: ['./cards-list.component.scss'],
 })
 export class CardsListComponent implements OnInit, OnDestroy {
+  user$!: Observable<User>;
+  userSubscription!: Subscription;
   cards$!: Observable<Card[]>;
   cardsSubscription!: Subscription;
   storeCardsSubscription!: Subscription;
@@ -25,37 +28,31 @@ export class CardsListComponent implements OnInit, OnDestroy {
     private store: Store,
     private getCardsUseCase: GetCardsUseCase
   ) {
-    this.storeCardsSubscription = this.store.select(UserSelectors.selectUserState)
-      .pipe(
-        filter((user) => user.uid != '')
-      ).subscribe((user) => {
-        this.getCardsUseCase.invoke(user.uid).subscribe((cards) => {
-          this.store.dispatch(CardsActions.getCards({cards: cards}));
-        });
-      });
-    this.cards$ = this.store
-      .select(CardsSelectors.selectCards)
-      .pipe(
-        map((cardsState) => {
-          return cardsState.cards
-        })
-      );
-    this.cardsSubscription = this.cards$.subscribe();
+    this.user$ = this.store.select(UserSelectors.selectUserState);
+    this.cards$ = this.store.select(CardsSelectors.selectCards).pipe(
+      map((cardsState) => cardsState.cards)
+    );
   }
 
   ngOnInit(): void {
-    // this.storeCardsSubscription = this.store.select(UserSelectors.selectUserState)
-    //   .pipe(
-    //     filter((user) => user.uid != ''),
-    //     switchMap((user) => {
-    //       return this.getCardsUseCase.invoke(user.uid);
-    //     }))
-    //   .subscribe((cards) => {
-    //       this.store.dispatch(CardsActions.getCards({cards: cards}));
-    //   })
+    this.userSubscription = this.user$.subscribe((user) => {
+      console.log('cards-list', user);
+    });
+    this.cardsSubscription = this.cards$.subscribe((cards) => {
+      console.log('cards-list', cards);
+    });
+    this.storeCardsSubscription = this.user$.pipe(
+      filter((user) => user.uid != ''),
+      switchMap((user) => {
+        return this.getCardsUseCase.invoke(user.uid)
+      })
+    ).subscribe((cards) => {
+      this.store.dispatch(CardsActions.getCards({cards: cards}));
+    });
   }
 
   ngOnDestroy() {
+    this.userSubscription.unsubscribe();
     this.cardsSubscription.unsubscribe();
     this.storeCardsSubscription.unsubscribe();
   }
