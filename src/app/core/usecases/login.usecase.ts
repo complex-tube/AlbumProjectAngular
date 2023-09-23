@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { UseCase } from '../base/usecase';
-import { filter, map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthorizationService } from '../services/authorization/authorization.service';
-import firebase from 'firebase/compat';
-import UserCredential = firebase.auth.UserCredential;
 import { AuthUserData } from '../models/api/auth-user-data.model';
-import { Store } from '@ngrx/store';
-import { UserActions } from '../actions/user.actions';
 import { User } from '../models/user.model';
 
 @Injectable({

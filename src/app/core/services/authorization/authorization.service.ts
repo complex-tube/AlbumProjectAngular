@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat';
-import { filter, map, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import UserCredential = firebase.auth.UserCredential;
 import { AuthSelectors } from '../../selectors/auth.selectors';
-import { User } from '../../models/user.model';
 import { ApiService } from '../api/api.service';
 import { ApiError } from '../../types/api-error';
 import { AuthUserData } from '../../models/api/auth-user-data.model';
 import { UserSelectors } from '../../selectors/user.selectors';
-import Unsubscribe = firebase.Unsubscribe;
 import { UserActions } from '../../actions/user.actions';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { StoreService } from '../store/store.service';
 
 @Injectable({
   providedIn: 'root',

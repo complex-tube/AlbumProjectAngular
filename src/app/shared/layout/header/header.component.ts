@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { LoginConfig } from '../../windows/auth-window/auth-window.component';
-import { filter, fromEvent, map, Observable, of, Subscription, switchMap, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../../core/models/user.model';
 import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
 import { LogoutUseCase } from '../../../core/usecases/logout.usecase';

@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AuthorizationService } from '../authorization/authorization.service';
 import { ApiService } from '../api/api.service';
-import { catchError, EMPTY, filter, from, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, map, Observable } from 'rxjs';
 import firebase from 'firebase/compat';
 import { User } from '../../models/user.model';
 import { ApiError } from '../../types/api-error';
 import { Card } from '../../models/card.model';
-import { Store } from '@ngrx/store';
-import { UserSelectors } from '../../selectors/user.selectors';
 
 @Injectable({
   providedIn: 'root',

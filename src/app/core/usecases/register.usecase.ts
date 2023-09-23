@@ -1,8 +1,6 @@
 import { UseCase } from '../base/usecase';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
-import firebase from 'firebase/compat';
-import UserCredential = firebase.auth.UserCredential;
+import { map, Observable } from 'rxjs';
 import { AuthorizationService } from '../services/authorization/authorization.service';
 import { AuthUserData } from '../models/api/auth-user-data.model';
 import { User } from '../models/user.model';

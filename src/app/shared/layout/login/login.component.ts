@@ -1,12 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { filter, fromEvent, map, mergeMap, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { fromEvent, Observable, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthTypeActions } from '../../../core/actions/auth-type.actions';
 import { LoginUseCase } from '../../../core/usecases/login.usecase';
 import { UserActions } from '../../../core/actions/user.actions';
-import { GetCardsUseCase } from '../../../core/usecases/get-cards.usecase';
-import { CardsActions } from '../../../core/actions/cards.actions';
-import { user } from '@angular/fire/auth';
 import { UserSelectors } from '../../../core/selectors/user.selectors';
 import { User } from '../../../core/models/user.model';
 

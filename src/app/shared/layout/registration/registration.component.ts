@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { filter, fromEvent, map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { filter, fromEvent, Observable, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthTypeActions } from '../../../core/actions/auth-type.actions';
 import { RegisterUseCase } from '../../../core/usecases/register.usecase';
