@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { Card } from '../../core/models/card.model';
 import { filter, map, Observable, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { UserSelectors } from '../../core/selectors/user.selectors';
 import { CardsActions } from '../../core/actions/cards.actions';
 import { GetCardsUseCase } from '../../core/usecases/get-cards.usecase';
 import { User } from '../../core/models/user.model';
+import { AddNewCardWindowConfig } from '../../shared/windows/add-new-card-window/add-new-card-window.component';
 
 @Component({
   selector: 'album-cards-list',
@@ -19,6 +20,9 @@ export class CardsListComponent implements OnInit, OnDestroy {
   cards$!: Observable<Card[]>;
   cardsSubscription!: Subscription;
   storeCardsSubscription!: Subscription;
+
+  @Output()
+  addNewCardWindowConfig: AddNewCardWindowConfig | null = null;
 
   constructor(
     private store: Store,
@@ -51,5 +55,13 @@ export class CardsListComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
     this.cardsSubscription.unsubscribe();
     this.storeCardsSubscription.unsubscribe();
+  }
+
+  onAddNewCardButtonClicked() {
+    this.addNewCardWindowConfig = {
+      onWindowClosed: () => {
+        this.addNewCardWindowConfig = null;
+      }
+    }
   }
 }

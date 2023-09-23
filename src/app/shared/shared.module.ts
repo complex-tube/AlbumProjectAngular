@@ -6,6 +6,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { AuthWindowComponent } from './windows/auth-window/auth-window.component';
 import { LoginComponent } from './layout/login/login.component';
 import { RegistrationComponent } from './layout/registration/registration.component';
+import { AddNewCardWindowComponent } from './windows/add-new-card-window/add-new-card-window.component';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,9 @@ import { RegistrationComponent } from './layout/registration/registration.compon
     AuthWindowComponent,
     LoginComponent,
     RegistrationComponent,
+    AddNewCardWindowComponent,
   ],
-  exports: [HeaderComponent, FooterComponent, AuthWindowComponent],
+  exports: [HeaderComponent, FooterComponent, AuthWindowComponent, AddNewCardWindowComponent],
   imports: [CommonModule],
 })
 export class SharedModule {}

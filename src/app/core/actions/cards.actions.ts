@@ -5,6 +5,7 @@ export namespace CardsActions {
     '[Cards List] Get Cards',
     props<{
       cards: {
+        id: number;
         title: string;
         description: string;
         url: string;

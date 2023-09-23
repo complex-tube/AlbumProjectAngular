@@ -13,11 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthWindowComponent extends Window implements OnInit, OnDestroy {
   @Input()
-  override config: LoginConfig = new (class implements LoginConfig {
-    onSuccess() {}
-
-    onWindowClosed() {}
-  })();
+  declare config: LoginConfig | null;
 
   readonly AuthType = AuthType;
 

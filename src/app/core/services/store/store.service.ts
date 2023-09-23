@@ -85,6 +85,7 @@ export class StoreService {
           const cards: Card[] = [];
           data.forEach((d) => {
             cards.push({
+              id: d['id'],
               title: d['title'],
               description: d['description'],
               url: d['url']
@@ -93,5 +94,9 @@ export class StoreService {
           return cards;
         })
       )
+  }
+
+  postUserCard(uid: string, card: Card) {
+    return this.firestore.doc(`users/${uid}`).collection('/cards').doc(`/${card.id}`).set(card);
   }
 }

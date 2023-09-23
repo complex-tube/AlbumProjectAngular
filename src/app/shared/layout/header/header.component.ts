@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginConfig } from '../../windows/auth-window/auth-window.component';
 import { Observable } from 'rxjs';
 import { User } from '../../../core/models/user.model';
@@ -15,7 +15,6 @@ import { CardsActions } from '../../../core/actions/cards.actions';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output()
   loginConfig!: LoginConfig | null;
 
   user$!: Observable<User>;

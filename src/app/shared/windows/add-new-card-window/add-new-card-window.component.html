@@ -1,0 +1,17 @@
+<div class="window">
+  <div class="background" (click)="config!.onWindowClosed()"></div>
+  <div class="outer-window" #outerWindow>
+    <div class="inner-window">
+      <title>
+        Add new card
+      </title>
+      <label for='card-name'>Card name:</label>
+      <input class='card-name' id='card-name' type='text' #cardNameInput>
+      <label for='card-description'>Card description:</label>
+      <textarea class='card-description' id='card-description' #cardDescriptionInput></textarea>
+      <label for='card-upload'>Card upload:</label>
+      <input class='card-upload' id='card-upload' accept='image/jpeg' type='file'#cardUploadInput>
+      <button class='upload-card' (click)='uploadCard()'>Upload card</button>
+    </div>
+  </div>
+</div>
