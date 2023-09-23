@@ -1,8 +1,8 @@
 <div class="window">
-  <div class="background" (click)="config!.onWindowClosed()"></div>
+  <div class="background" (click)="closeWindow()"></div>
   <div class="outer-window" #outerWindow>
     <div class="inner-window">
-      <div class="window-container" [ngSwitch]="getCurrentAuthType() | async">
+      <div class="window-container" [ngSwitch]="authWindowType$ | async">
         <album-login *ngSwitchCase="AuthType.LOGIN"></album-login>
         <album-registration *ngSwitchCase="AuthType.REGISTRATION"></album-registration>
       </div>

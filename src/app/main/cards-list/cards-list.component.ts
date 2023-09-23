@@ -7,7 +7,8 @@ import { UserSelectors } from '../../core/selectors/user.selectors';
 import { CardsActions } from '../../core/actions/cards.actions';
 import { GetCardsUseCase } from '../../core/usecases/get-cards.usecase';
 import { User } from '../../core/models/user.model';
-import { AddNewCardWindowConfig } from '../../shared/windows/add-new-card-window/add-new-card-window.component';
+import { AddNewCardWindowActions } from '../../core/actions/add-new-card-window.actions';
+import { AddNewCardWindowSelectors } from '../../core/selectors/add-new-card-window.selectors';
 
 @Component({
   selector: 'album-cards-list',
@@ -21,8 +22,7 @@ export class CardsListComponent implements OnInit, OnDestroy {
   cardsSubscription!: Subscription;
   storeCardsSubscription!: Subscription;
 
-  @Output()
-  addNewCardWindowConfig: AddNewCardWindowConfig | null = null;
+  addNewCardWindowShown$!: Observable<boolean>;
 
   constructor(
     private store: Store,
@@ -32,6 +32,7 @@ export class CardsListComponent implements OnInit, OnDestroy {
     this.cards$ = this.store.select(CardsSelectors.selectCards).pipe(
       map((cardsState) => cardsState.cards)
     );
+    this.addNewCardWindowShown$ = this.store.select(AddNewCardWindowSelectors.selectAddNewCardWindowShown);
   }
 
   ngOnInit(): void {
@@ -58,10 +59,6 @@ export class CardsListComponent implements OnInit, OnDestroy {
   }
 
   onAddNewCardButtonClicked() {
-    this.addNewCardWindowConfig = {
-      onWindowClosed: () => {
-        this.addNewCardWindowConfig = null;
-      }
-    }
+    this.store.dispatch(AddNewCardWindowActions.showWindow());
   }
 }

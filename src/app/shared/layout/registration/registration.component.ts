@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { filter, fromEvent, Observable, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthTypeActions } from '../../../core/actions/auth-type.actions';
 import { RegisterUseCase } from '../../../core/usecases/register.usecase';
 import { UserActions } from '../../../core/actions/user.actions';
 import { StoreService } from '../../../core/services/store/store.service';
 import { UserSelectors } from '../../../core/selectors/user.selectors';
 import { User } from '../../../core/models/user.model';
+import { AuthWindowActions } from '../../../core/actions/auth-window.actions';
 
 @Component({
   selector: 'album-registration',
@@ -51,7 +51,7 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
       'click',
     ).subscribe(() => {
       console.log('registration set login auth type dispatch');
-      this.store.dispatch(AuthTypeActions.setLoginAuthType());
+      this.store.dispatch(AuthWindowActions.setLoginAuthType());
     });
     this.registrationSubmitButtonEventSubscription = fromEvent(
       this.registrationSubmitButton.nativeElement,

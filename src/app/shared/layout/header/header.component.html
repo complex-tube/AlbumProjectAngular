@@ -9,4 +9,4 @@
   </div>
 </header>
 
-<album-auth-window *ngIf='loginConfig && (user$ | async)?.uid === ""' [config]='loginConfig'></album-auth-window>
+<album-auth-window *ngIf='(isAuthWindowShown$ | async) && (user$ | async)?.uid === ""'></album-auth-window>

@@ -10,12 +10,13 @@ import { AngularFireModule } from '@angular/fire/compat';
 
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
-import { authTypeReducer } from './core/reducers/auth-type.reducer';
 import { userReducer } from './core/reducers/user.reducer';
 import { cardsReducer } from './core/reducers/cards.reducer';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { authWindowReducer } from './core/reducers/auth-window.reducer';
+import { addNewCardWindowReducer } from './core/reducers/add-new-card-window.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,9 +31,10 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     AngularFireStorageModule,
     AngularFirestoreModule,
     StoreModule.forRoot({
-      authState: authTypeReducer,
       userState: userReducer,
       cardsState: cardsReducer,
+      authWindowState: authWindowReducer,
+      addNewCardWindowState: addNewCardWindowReducer
     }),
   ],
   providers: [],

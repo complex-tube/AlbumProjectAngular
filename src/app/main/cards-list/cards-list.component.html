@@ -8,4 +8,4 @@
     </ul>
   </div>
 </main>
-<album-add-new-card-window *ngIf='addNewCardWindowConfig' [config]='addNewCardWindowConfig'></album-add-new-card-window>
+<album-add-new-card-window *ngIf='addNewCardWindowShown$ | async'></album-add-new-card-window>
