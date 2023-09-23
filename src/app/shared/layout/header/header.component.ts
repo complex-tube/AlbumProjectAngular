@@ -15,7 +15,6 @@ import { CardsActions } from '../../../core/actions/cards.actions';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output()
   loginConfig!: LoginConfig | null;
 
   user$!: Observable<User>;

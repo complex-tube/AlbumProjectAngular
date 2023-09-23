@@ -24,7 +24,7 @@ export abstract class Window extends BaseComponent implements OnInit, OnDestroy 
   innerWindow!: ElementRef;
 
   @Input()
-  protected config!: WindowConfig;
+  protected config!: WindowConfig | null;
 
   protected scrollTop: number = 0;
 

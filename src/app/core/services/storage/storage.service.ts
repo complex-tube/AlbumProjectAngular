@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
+import { catchError, EMPTY, from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { Card } from '../../models/card.model';
 import { CardsSelectors } from '../../selectors/cards.selectors';
 import { CardsState } from '../../reducers/cards.reducer';
+import { ApiService } from '../api/api.service';
+import { ApiError } from '../../types/api-error';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +18,26 @@ export class StorageService {
   constructor(
     private storage: AngularFireStorage,
     private store: Store,
+    private apiService: ApiService
   ) {
   }
 
-  uploadCard() {
+  uploadCard(uid: string, number: number, format: string, data: File, onError: ApiError) {
+    return this.apiService.requestHandler(() => {
+      return this.storage.upload(`${uid}/cards/${number}.${format}`, data).then((file) => {
+        console.log(file);
+      });
+    }, onError);
+  }
 
+  getCardURL(uid: string, number: number, onError: ApiError) {
+    return this.storage.ref(`${uid}/cards/${number}.jpg`).getDownloadURL()
+      .pipe(
+        catchError((err: unknown) => {
+          onError(err);
+          return EMPTY;
+        })
+      );
   }
 
   deleteCard() {

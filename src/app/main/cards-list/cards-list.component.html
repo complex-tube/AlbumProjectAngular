@@ -2,9 +2,10 @@
   <div class="container">
     <ul>
       <album-card-item *ngFor="let cardValue of (cards$ | async)" [card]="cardValue"></album-card-item>
-      <button class='add-card' *ngIf="(user$ | async)?.uid !== ''">
+      <button class='add-card' *ngIf="(user$ | async)?.uid !== ''" (click)='onAddNewCardButtonClicked()'>
         Add Another Card
       </button>
     </ul>
   </div>
 </main>
+<album-add-new-card-window *ngIf='addNewCardWindowConfig' [config]='addNewCardWindowConfig'></album-add-new-card-window>
