@@ -1,12 +1,12 @@
 <header>
   <div class="container">
-    <button class="login" (click)="onLoginButtonClick()" *ngIf='(getUserObservable() | async)?.uid === ""'>
+    <button class="login" (click)="onLoginButtonClick()" *ngIf='(user$ | async)?.uid === ""'>
       Войти
     </button>
-    <button class='logout' (click)="onLogoutButtonClick()" *ngIf='(getUserObservable() | async)?.uid !== ""'>
+    <button class='logout' (click)="onLogoutButtonClick()" *ngIf='(user$ | async)?.uid !== ""'>
       Выйти
     </button>
   </div>
 </header>
 
-<album-auth-window *ngIf='loginConfig && (getUserObservable() | async)?.uid === ""' [config]='loginConfig'></album-auth-window>
+<album-auth-window *ngIf='loginConfig && (user$ | async)?.uid === ""' [config]='loginConfig'></album-auth-window>

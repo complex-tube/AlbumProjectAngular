@@ -6,6 +6,8 @@ import { AuthorizationService } from '../../../core/services/authorization/autho
 import { LogoutUseCase } from '../../../core/usecases/logout.usecase';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../../core/actions/user.actions';
+import { UserSelectors } from '../../../core/selectors/user.selectors';
+import { CardsActions } from '../../../core/actions/cards.actions';
 
 @Component({
   selector: 'album-header',
@@ -16,11 +18,18 @@ export class HeaderComponent {
   @Output()
   loginConfig!: LoginConfig | null;
 
+  user$!: Observable<User>;
+
   constructor(
     private authService: AuthorizationService,
     private logoutUseCase: LogoutUseCase,
     private store: Store,
-  ) {}
+  ) {
+    this.user$ = this.store.select(UserSelectors.selectUserState);
+    this.user$.subscribe((user) => {
+      console.log('header', user);
+    });
+  }
 
   onLoginButtonClick(): void {
     this.loginConfig = {
@@ -31,13 +40,17 @@ export class HeaderComponent {
   }
 
   onLogoutButtonClick(): void {
-    this.logoutUseCase.invoke().subscribe(() => {
-      this.store.dispatch(UserActions.logoutUser({ uid: '' }));
+    const logoutUseCase$ = this.logoutUseCase.invoke();
+    logoutUseCase$.subscribe(() => {
+      this.store.dispatch(UserActions.logoutUser({uid: '', email: ''}));
+      console.log('header logout user dispatch');
+    });
+    logoutUseCase$.subscribe(() => {
+      this.store.dispatch(CardsActions.clearCards());
+      console.log('header clear cards dispatch');
+    });
+    logoutUseCase$.subscribe(() => {
       this.loginConfig = null;
     });
-  }
-
-  getUserObservable(): Observable<User> {
-    return this.authService.user$;
   }
 }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from './core/base/base-component';
-import { AuthorizationService } from './core/services/authorization/authorization.service';
-import { filter, Observable, switchMap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from './core/models/user.model';
 import { LoginExistedUserUseCase } from './core/usecases/login-existed-user.usecase';
-import { GetCardsUseCase } from './core/usecases/get-cards.usecase';
-import { CardsActions } from './core/actions/cards.actions';
 import { Store } from '@ngrx/store';
+import { UserSelectors } from './core/selectors/user.selectors';
+import { Card } from './core/models/card.model';
+import { CardsSelectors } from './core/selectors/cards.selectors';
 
 @Component({
   selector: 'album-root',
@@ -14,30 +14,25 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent extends BaseComponent implements OnInit {
+
+  user$!: Observable<User>;
+  cards$!: Observable<Card[]>;
   constructor(
-    private authService: AuthorizationService,
     private loginExistedUserUseCase: LoginExistedUserUseCase,
-    private getPicturesUrlsUseCase: GetCardsUseCase,
-    private store: Store,
+    private store: Store
   ) {
     super();
+    this.user$ = this.store.select(UserSelectors.selectUserState);
+    this.loginExistedUserUseCase.invoke().subscribe();
+    this.user$.subscribe((user) => {
+      console.log('app', user);
+    });
+    this.cards$ = this.store.select(CardsSelectors.selectCards).pipe(map((cardsState) => cardsState.cards));
+    this.cards$.subscribe((cards) => {
+      console.log('header', cards);
+    });
   }
 
   ngOnInit() {
-    this.loginExistedUserUseCase.invoke();
-    this.getUserObservable()
-      .pipe(
-        filter((user) => user.uid != ''),
-        switchMap(() => {
-          return this.getPicturesUrlsUseCase.invoke();
-        }),
-      )
-      .subscribe((cards) => {
-        this.store.dispatch(CardsActions.getCards({ cards: cards }));
-      });
-  }
-
-  getUserObservable(): Observable<User> {
-    return this.authService.user$;
   }
 }

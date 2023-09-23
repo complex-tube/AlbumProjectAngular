@@ -12,9 +12,10 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { authTypeReducer } from './core/reducers/auth-type.reducer';
 import { userReducer } from './core/reducers/user.reducer';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getStorage, provideStorage } from '@angular/fire/storage';
 import { cardsReducer } from './core/reducers/cards.reducer';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,8 +26,9 @@ import { cardsReducer } from './core/reducers/cards.reducer';
     MainModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    provideAuth(() => getAuth()),
-    provideStorage(() => getStorage()),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFirestoreModule,
     StoreModule.forRoot({
       authState: authTypeReducer,
       userState: userReducer,

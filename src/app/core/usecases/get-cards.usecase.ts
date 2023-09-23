@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { UseCase } from '../base/usecase';
-import { StorageService } from '../services/storage/storage.service';
 import { Observable } from 'rxjs';
 import { Card } from '../models/card.model';
+import { StoreService } from '../services/store/store.service';
+import firebase from 'firebase/compat';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GetCardsUseCase extends UseCase {
-  constructor(private storageService: StorageService) {
+  constructor(private storeService: StoreService) {
     super();
   }
 
-  invoke(): Observable<Card[]> {
-    return this.storageService.getListOfCards();
+  invoke(uid: string): Observable<Card[]> {
+    return this.storeService.getUserCardsList(uid, (error: any) => {
+      console.log(error);
+    });
   }
 }
