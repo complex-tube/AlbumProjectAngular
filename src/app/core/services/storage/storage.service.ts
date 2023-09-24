@@ -5,6 +5,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { ApiService } from '../api/api.service';
 import { ApiError } from '../../types/api-error';
+import { Card } from '../../models/card.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,8 +36,13 @@ export class StorageService {
       );
   }
 
-  deleteCard() {
-
+  deleteCard(uid: string, cardId: number, onError: ApiError) {
+    return this.storage.ref(`${uid}/cards/${cardId}.jpg`).delete().pipe(
+      catchError((err: unknown) => {
+        onError(err);
+        return EMPTY;
+      })
+    );
   }
 
   updateCard() {

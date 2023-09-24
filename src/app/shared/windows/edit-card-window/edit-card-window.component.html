@@ -11,6 +11,9 @@
       <div class='card-description'>
         {{(editCardWindowCard$ | async)?.description}}
       </div>
+      <button class='delete-card' (click)='deleteCard()'>
+        Delete Card
+      </button>
     </div>
   </div>
 </div>

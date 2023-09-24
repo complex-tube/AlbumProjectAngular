@@ -101,4 +101,10 @@ export class StoreService {
       return this.firestore.doc(`users/${uid}`).collection('/cards').doc(`/${card.id}`).set(card);
     }, onError);
   }
+
+  deleteUserCard(uid: string, cardId: number, onError: ApiError) {
+    return this.apiService.requestHandler(() => {
+      return this.firestore.doc(`users/${uid}`).collection('/cards').doc(`/${cardId}`).delete();
+    }, onError);
+  }
 }

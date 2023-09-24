@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Card } from '../models/card.model';
 
 export namespace CardsActions {
   export const getCards = createAction(
@@ -15,5 +16,12 @@ export namespace CardsActions {
 
   export const clearCards = createAction(
     '[Header Layout] Clear Cards',
+  )
+
+  export const deleteCard = createAction(
+    '[Edit Card Window] Delete Card',
+    props<{
+      cardId: number
+    }>()
   )
 }
