@@ -17,6 +17,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { authWindowReducer } from './core/reducers/auth-window.reducer';
 import { addNewCardWindowReducer } from './core/reducers/add-new-card-window.reducer';
+import { editCardWindowReducer } from './core/reducers/edit-card-window.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import { addNewCardWindowReducer } from './core/reducers/add-new-card-window.red
       userState: userReducer,
       cardsState: cardsReducer,
       authWindowState: authWindowReducer,
-      addNewCardWindowState: addNewCardWindowReducer
+      addNewCardWindowState: addNewCardWindowReducer,
+      editCardWindowState: editCardWindowReducer
     }),
   ],
   providers: [],

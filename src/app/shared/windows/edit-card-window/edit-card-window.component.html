@@ -1,0 +1,16 @@
+<div class="window">
+  <div class="background" (click)="closeWindow()"></div>
+  <div class="outer-window" #outerWindow>
+    <div class="inner-window">
+      <div class='card-image'>
+        <img src='{{(editCardWindowCard$ | async)?.url}}'>
+      </div>
+      <div class='card-title'>
+        {{(editCardWindowCard$ | async)?.title}}
+      </div>
+      <div class='card-description'>
+        {{(editCardWindowCard$ | async)?.description}}
+      </div>
+    </div>
+  </div>
+</div>
