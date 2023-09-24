@@ -22,7 +22,7 @@ export class EditCardWindowComponent extends Window implements OnInit, OnDestroy
       .pipe(
         filter(card => !!card)
       );
-    this.editCardWindowCardSubscription = this.editCardWindowCard$.subscribe((card) => {
+    this.editCardWindowCardSubscription = this.editCardWindowCard$.subscribe(() => {
 
     });
   }

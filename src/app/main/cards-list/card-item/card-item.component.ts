@@ -2,7 +2,6 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Card } from '../../../core/models/card.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { EditCardWindowConfig } from '../../../core/reducers/edit-card-window.reducer';
 import { EditCardWindowSelectors } from '../../../core/selectors/edit-card-window.selectors';
 import { EditCardWindowActions } from '../../../core/actions/edit-card-window.actions';
 

@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AddNewCardWindowConfig } from '../reducers/add-new-card-window.reducer';
 import { EditCardWindowConfig } from '../reducers/edit-card-window.reducer';
 
 export namespace EditCardWindowSelectors {

@@ -3,7 +3,7 @@
   <div class="outer-window" #outerWindow>
     <div class="inner-window">
       <div class='card-image'>
-        <img src='{{(editCardWindowCard$ | async)?.url}}'>
+        <img alt='{{(editCardWindowCard$ | async)?.url}}' src='{{(editCardWindowCard$ | async)?.url}}'>
       </div>
       <div class='card-title'>
         {{(editCardWindowCard$ | async)?.title}}
