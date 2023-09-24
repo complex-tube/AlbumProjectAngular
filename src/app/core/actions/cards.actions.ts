@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { Card } from '../models/card.model';
 
 export namespace CardsActions {
   export const getCards = createAction(

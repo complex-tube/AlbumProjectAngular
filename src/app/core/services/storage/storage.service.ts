@@ -5,7 +5,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { ApiService } from '../api/api.service';
 import { ApiError } from '../../types/api-error';
-import { Card } from '../../models/card.model';
 
 @Injectable({
   providedIn: 'root',
