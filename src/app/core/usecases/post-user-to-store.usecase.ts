@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { UseCase } from '../base/usecase';
 import { Observable } from 'rxjs';
-import { Card } from '../models/card.model';
 import { StoreService } from '../services/store/store.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PostUserCardUseCase extends UseCase {
+export class PostUserToStoreUseCase extends UseCase {
   constructor(private storeService: StoreService) {
     super();
   }
 
-  invoke(uid: string, card: Card): Observable<void> {
-    return this.storeService.postUserCard(uid, card, (error: any) => {
+  invoke(data: User): Observable<void> {
+    return this.storeService.postUser(data, (error: any) => {
       console.log(error.code);
     });
   }

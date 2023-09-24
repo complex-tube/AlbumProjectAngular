@@ -43,10 +43,10 @@ export class StoreService {
       );
   }
 
-  setUser(uid: string, data: User, onError: ApiError): Observable<void> {
+  postUser(data: User, onError: ApiError): Observable<void> {
     return this.apiService.requestHandler(
       () => {
-        return this.firestore.doc(`users/${uid}`).set(data)
+        return this.firestore.doc(`users/${data.uid}`).set({uid: data.uid, email: data.email});
       },
       onError);
   }
@@ -96,7 +96,9 @@ export class StoreService {
       )
   }
 
-  postUserCard(uid: string, card: Card) {
-    return this.firestore.doc(`users/${uid}`).collection('/cards').doc(`/${card.id}`).set(card);
+  postUserCard(uid: string, card: Card, onError: ApiError) {
+    return this.apiService.requestHandler(() => {
+      return this.firestore.doc(`users/${uid}`).collection('/cards').doc(`/${card.id}`).set(card);
+    }, onError);
   }
 }

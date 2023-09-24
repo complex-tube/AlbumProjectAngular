@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Window, WindowConfig } from '../../../core/base/window';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Window } from '../../../core/base/window';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
 import { User } from '../../../core/models/user.model';
@@ -9,6 +9,7 @@ import { CardsSelectors } from '../../../core/selectors/cards.selectors';
 import { UploadCardToStorageUseCase } from '../../../core/usecases/upload-card-to-storage.usecase';
 import { GetCardUrlUseCase } from '../../../core/usecases/get-card-url.usecase';
 import { PostUserCardUseCase } from '../../../core/usecases/post-user-card.usecase';
+import { AddNewCardWindowActions } from '../../../core/actions/add-new-card-window.actions';
 
 @Component({
   selector: 'album-add-new-card-window',
@@ -24,9 +25,6 @@ export class AddNewCardWindowComponent extends Window implements OnInit, OnDestr
 
   @ViewChild('cardUploadInput')
   cardUploadInput!: ElementRef;
-
-  @Input()
-  declare config: AddNewCardWindowConfig | null;
 
   user$!: Observable<User>;
   userSubscription!: Subscription;
@@ -67,7 +65,9 @@ export class AddNewCardWindowComponent extends Window implements OnInit, OnDestr
     super.ngOnDestroy();
     this.userSubscription.unsubscribe();
     this.cardsSubscription.unsubscribe();
-    this.uploadCardSubscription.unsubscribe();
+    if (this.uploadCardSubscription != null) {
+      this.uploadCardSubscription.unsubscribe();
+    }
   }
 
   uploadCard() {
@@ -97,10 +97,14 @@ export class AddNewCardWindowComponent extends Window implements OnInit, OnDestr
           return this.postUserCardUseCase.invoke(this.user.uid, card);
         }))
       .subscribe((data) => {
-        this.config?.onWindowClosed();
         console.log(data);
+        this.store.dispatch(AddNewCardWindowActions.closeWindow());
       });
+  }
+
+  closeWindow() {
+    this.store.dispatch(AddNewCardWindowActions.closeWindow());
   }
 }
 
-export interface AddNewCardWindowConfig extends WindowConfig {}
+// export interface AddNewCardWindowConfig extends WindowConfig {}

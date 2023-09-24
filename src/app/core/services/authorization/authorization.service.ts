@@ -4,7 +4,6 @@ import firebase from 'firebase/compat';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import UserCredential = firebase.auth.UserCredential;
-import { AuthSelectors } from '../../selectors/auth.selectors';
 import { ApiService } from '../api/api.service';
 import { ApiError } from '../../types/api-error';
 import { AuthUserData } from '../../models/api/auth-user-data.model';
@@ -15,14 +14,12 @@ import { UserActions } from '../../actions/user.actions';
   providedIn: 'root',
 })
 export class AuthorizationService {
-  currentAuthType$!: Observable<AuthType>;
 
   constructor(
     private auth: AngularFireAuth,
     private store: Store,
     private apiService: ApiService,
   ) {
-    this.currentAuthType$ = this.store.select(AuthSelectors.selectAuthTypeState);
     this.auth.setPersistence('session').then(() => {
       console.log('session');
     });
