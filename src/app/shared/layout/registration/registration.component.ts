@@ -7,6 +7,7 @@ import { StoreService } from '../../../core/services/store/store.service';
 import { UserSelectors } from '../../../core/selectors/user.selectors';
 import { User } from '../../../core/models/user.model';
 import { AuthWindowActions } from '../../../core/actions/auth-window.actions';
+import { PostUserToStoreUseCase } from '../../../core/usecases/post-user-to-store.usecase';
 
 @Component({
   selector: 'album-registration',
@@ -37,7 +38,8 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
   constructor(
     private store: Store,
     private registerUseCase: RegisterUseCase,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private postUserToStore: PostUserToStoreUseCase,
   ) {
     this.user$ = this.store.select(UserSelectors.selectUserState);
   }
@@ -70,9 +72,15 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
         console.log('registration register user dispatch');
         this.store.dispatch(UserActions.registerUser({uid: user.uid, email: user.email}));
       });
-    this.userDataUploadSubscription = this.user$.pipe(filter((user) => user.uid != '')).subscribe((user) => {
-      this.storeService.setUser(user.uid, user, () => {});
-    });
+    this.userDataUploadSubscription = this.user$
+      .pipe(
+        filter((user) => user.uid != ''),
+        switchMap((user) => {
+          console.log('registration store service set user ');
+          return this.postUserToStore.invoke(user);
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
