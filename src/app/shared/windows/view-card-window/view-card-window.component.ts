@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Card } from '../../../core/models/card.model';
 import { ViewCardWindowSelectors } from '../../../core/selectors/view-card-window.selectors';
 import { ViewCardWindowActions } from '../../../core/actions/view-card-window.actions';
