@@ -20,6 +20,9 @@ export class AddNewCardWindowComponent extends Window implements OnInit, OnDestr
   @ViewChild('cardNameInput')
   cardNameInput!: ElementRef;
 
+  @ViewChild('cardDateInput')
+  cardDateInput!: ElementRef;
+
   @ViewChild('cardDescriptionInput')
   cardDescriptionInput!: ElementRef;
 
@@ -92,7 +95,8 @@ export class AddNewCardWindowComponent extends Window implements OnInit, OnDestr
             id: cardId,
             title: this.cardNameInput.nativeElement.value,
             description: this.cardDescriptionInput.nativeElement.value,
-            url: url
+            url: url,
+            date: this.cardDateInput.nativeElement.value
           };
           return this.postUserCardUseCase.invoke(this.user.uid, card);
         }))

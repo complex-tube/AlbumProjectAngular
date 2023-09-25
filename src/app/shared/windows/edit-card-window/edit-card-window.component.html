@@ -1,5 +1,5 @@
 <div class="window">
-  <div class="background" (click)="closeWindow()"></div>
+  <div class="background" (click)="onBackGroundClicked()"></div>
   <div class="outer-window" #outerWindow>
     <div class="inner-window">
       <div class='card-image'>
@@ -7,6 +7,9 @@
       </div>
       <div class='card-title'>
         {{(editCardWindowCard$ | async)?.title}}
+      </div>
+      <div class='card-date'>
+        {{(editCardWindowCard$ | async)?.date}}
       </div>
       <div class='card-description'>
         {{(editCardWindowCard$ | async)?.description}}

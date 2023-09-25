@@ -1,9 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { Card } from '../../../core/models/card.model';
 import { ViewCardWindowSelectors } from '../../../core/selectors/view-card-window.selectors';
 import { ViewCardWindowActions } from '../../../core/actions/view-card-window.actions';
+import { EditCardWindowActions } from '../../../core/actions/edit-card-window.actions';
 
 @Component({
   selector: 'album-view-card-window',
@@ -11,12 +12,18 @@ import { ViewCardWindowActions } from '../../../core/actions/view-card-window.ac
   styleUrls: ['./view-card-window.component.scss'],
 })
 export class ViewCardWindowComponent implements OnDestroy {
+  card!: Card;
+
   card$!: Observable<Card | null>;
   cardSubscription!: Subscription;
 
   constructor(private store: Store) {
     this.card$ = this.store.select(ViewCardWindowSelectors.selectViewCardWindowCard);
-    this.cardSubscription = this.card$.subscribe();
+    this.cardSubscription = this.card$.subscribe((card) => {
+      if (card) {
+        this.card = card;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -25,5 +32,12 @@ export class ViewCardWindowComponent implements OnDestroy {
 
   closeWindow() {
     this.store.dispatch(ViewCardWindowActions.closeWindow());
+  }
+
+  toEdit() {
+    if (this.card) {
+      this.store.dispatch(EditCardWindowActions.showWindow({ card: this.card }));
+      this.closeWindow();
+    }
   }
 }
