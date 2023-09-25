@@ -1,5 +1,9 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Card } from '../../../core/models/card.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { EditCardWindowSelectors } from '../../../core/selectors/edit-card-window.selectors';
+import { EditCardWindowActions } from '../../../core/actions/edit-card-window.actions';
 
 @Component({
   selector: 'album-card-item',
@@ -12,6 +16,12 @@ export class CardItemComponent {
 
   @ViewChild('cardElement')
   cardElement!: ElementRef;
+
+  editWindowShown$!: Observable<boolean>;
+
+  constructor(private store: Store) {
+    this.editWindowShown$ = this.store.select(EditCardWindowSelectors.selectEditCardWindowShown);
+  }
 
   onMouseMove(eventTarget: MouseEvent): void {
     const rotateValues = this.getRotateValues(eventTarget);
@@ -31,6 +41,11 @@ export class CardItemComponent {
 
   onMouseLeave(): void {
     this.cardElement.nativeElement.removeAttribute('style');
+  }
+
+  onClick(): void {
+    console.log('card item edit card show window dispatch');
+    this.store.dispatch(EditCardWindowActions.showWindow({card: this.card}));
   }
 
   private getRotateValues(eventTarget: MouseEvent): { x: number; y: number } {

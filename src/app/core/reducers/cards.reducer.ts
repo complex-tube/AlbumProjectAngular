@@ -26,4 +26,11 @@ export const cardsReducer = createReducer(
       cards: []
     }),
   ),
+  on(
+    CardsActions.deleteCard,
+    (_cards, {cardId}) => ({
+      ..._cards,
+      cards: _cards.cards.filter((cardFromState) => cardFromState.id != cardId)
+    })
+  )
 );

@@ -35,42 +35,16 @@ export class StorageService {
       );
   }
 
-  deleteCard() {
-
+  deleteCard(uid: string, cardId: number, onError: ApiError) {
+    return this.storage.ref(`${uid}/cards/${cardId}.jpg`).delete().pipe(
+      catchError((err: unknown) => {
+        onError(err);
+        return EMPTY;
+      })
+    );
   }
 
   updateCard() {
 
   }
-
-  // uploadCard() {
-  //   this.storage.upload()
-  // }
-
-  // getListOfCards(uid: string): Observable<Card[]> {
-  //   return this.storage
-  //     .ref(`/${uid}`)
-  //     .listAll()
-  //     .pipe(
-  //       map((item) => item.items),
-  //       switchMap((refItems) => {
-  //         return from(refItems);
-  //       }),
-  //       mergeMap((ref) => {
-  //         return from(ref.getDownloadURL());
-  //       }),
-  //       toArray(),
-  //       map((urls): Card[] => {
-  //         const cards: Card[] = [];
-  //         urls.forEach((url) => {
-  //           cards.push({
-  //             title: '',
-  //             description: '',
-  //             url: url,
-  //           });
-  //         });
-  //         return cards;
-  //       }),
-  //     );
-  // }
 }

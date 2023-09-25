@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { UserSelectors } from './core/selectors/user.selectors';
 import { Card } from './core/models/card.model';
 import { CardsSelectors } from './core/selectors/cards.selectors';
+import { EditCardWindowSelectors } from './core/selectors/edit-card-window.selectors';
 
 @Component({
   selector: 'album-root',
@@ -17,11 +18,14 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   user$!: Observable<User>;
   cards$!: Observable<Card[]>;
+
+  editCardWindowShown$!: Observable<boolean>;
   constructor(
     private loginExistedUserUseCase: LoginExistedUserUseCase,
     private store: Store
   ) {
     super();
+    this.editCardWindowShown$ = this.store.select(EditCardWindowSelectors.selectEditCardWindowShown);
     this.user$ = this.store.select(UserSelectors.selectUserState);
     this.loginExistedUserUseCase.invoke().subscribe();
     this.user$.subscribe((user) => {
