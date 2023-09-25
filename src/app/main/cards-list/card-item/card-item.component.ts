@@ -3,7 +3,6 @@ import { Card } from '../../../core/models/card.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EditCardWindowSelectors } from '../../../core/selectors/edit-card-window.selectors';
-import { EditCardWindowActions } from '../../../core/actions/edit-card-window.actions';
 import { ViewCardWindowActions } from '../../../core/actions/view-card-window.actions';
 
 @Component({

@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { EditCardWindowActions } from '../../../core/actions/edit-card-window.actions';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Card } from '../../../core/models/card.model';
