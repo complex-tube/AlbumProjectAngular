@@ -1,0 +1,10 @@
+<div class="window">
+  <div class="background" (click)="closeWindow()"></div>
+  <div class="outer-window" #outerWindow>
+    <div class="inner-window">
+      <div class='card-image'>
+        <img alt='{{(card$ | async)?.url}}' src='{{(card$ | async)?.url}}'>
+      </div>
+    </div>
+  </div>
+</div>

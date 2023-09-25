@@ -8,6 +8,7 @@ import { LoginComponent } from './layout/login/login.component';
 import { RegistrationComponent } from './layout/registration/registration.component';
 import { AddNewCardWindowComponent } from './windows/add-new-card-window/add-new-card-window.component';
 import { EditCardWindowComponent } from './windows/edit-card-window/edit-card-window.component';
+import { ViewCardWindowComponent } from './windows/view-card-window/view-card-window.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EditCardWindowComponent } from './windows/edit-card-window/edit-card-wi
     RegistrationComponent,
     AddNewCardWindowComponent,
     EditCardWindowComponent,
+    ViewCardWindowComponent,
   ],
   exports: [
     HeaderComponent,
@@ -25,6 +27,7 @@ import { EditCardWindowComponent } from './windows/edit-card-window/edit-card-wi
     AuthWindowComponent,
     AddNewCardWindowComponent,
     EditCardWindowComponent,
+    ViewCardWindowComponent,
   ],
   imports: [CommonModule],
 })

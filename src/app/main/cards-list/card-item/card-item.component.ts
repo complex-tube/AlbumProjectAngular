@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EditCardWindowSelectors } from '../../../core/selectors/edit-card-window.selectors';
 import { EditCardWindowActions } from '../../../core/actions/edit-card-window.actions';
+import { ViewCardWindowActions } from '../../../core/actions/view-card-window.actions';
 
 @Component({
   selector: 'album-card-item',
@@ -44,8 +45,8 @@ export class CardItemComponent {
   }
 
   onClick(): void {
-    console.log('card item edit card show window dispatch');
-    this.store.dispatch(EditCardWindowActions.showWindow({card: this.card}));
+    console.log('card item view card show window dispatch');
+    this.store.dispatch(ViewCardWindowActions.showWindow({card: this.card}));
   }
 
   private getRotateValues(eventTarget: MouseEvent): { x: number; y: number } {
