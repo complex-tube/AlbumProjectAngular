@@ -9,6 +9,7 @@ import { RegistrationComponent } from './layout/registration/registration.compon
 import { AddNewCardWindowComponent } from './windows/add-new-card-window/add-new-card-window.component';
 import { EditCardWindowComponent } from './windows/edit-card-window/edit-card-window.component';
 import { ViewCardWindowComponent } from './windows/view-card-window/view-card-window.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,6 @@ import { ViewCardWindowComponent } from './windows/view-card-window/view-card-wi
     EditCardWindowComponent,
     ViewCardWindowComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
 })
 export class SharedModule {}

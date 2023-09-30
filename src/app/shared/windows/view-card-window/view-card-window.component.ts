@@ -15,11 +15,11 @@ export class ViewCardWindowComponent implements OnDestroy {
   card!: Card;
 
   card$!: Observable<Card | null>;
-  cardSubscription!: Subscription;
+  cardSub!: Subscription;
 
   constructor(private store: Store) {
     this.card$ = this.store.select(ViewCardWindowSelectors.selectViewCardWindowCard);
-    this.cardSubscription = this.card$.subscribe((card) => {
+    this.cardSub = this.card$.subscribe((card) => {
       if (card) {
         this.card = card;
       }
@@ -27,7 +27,7 @@ export class ViewCardWindowComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.cardSubscription.unsubscribe();
+    this.cardSub.unsubscribe();
   }
 
   closeWindow() {
