@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Window } from '../../../core/base/window';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
@@ -10,6 +10,7 @@ import { UploadCardToStorageUseCase } from '../../../core/usecases/upload-card-t
 import { GetCardUrlUseCase } from '../../../core/usecases/get-card-url.usecase';
 import { PostUserCardUseCase } from '../../../core/usecases/post-user-card.usecase';
 import { AddNewCardWindowActions } from '../../../core/actions/add-new-card-window.actions';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'album-add-new-card-window',
@@ -17,18 +18,6 @@ import { AddNewCardWindowActions } from '../../../core/actions/add-new-card-wind
   styleUrls: ['./add-new-card-window.component.scss']
 })
 export class AddNewCardWindowComponent extends Window implements OnInit, OnDestroy {
-  @ViewChild('cardNameInput')
-  cardNameInput!: ElementRef;
-
-  @ViewChild('cardDateInput')
-  cardDateInput!: ElementRef;
-
-  @ViewChild('cardDescriptionInput')
-  cardDescriptionInput!: ElementRef;
-
-  @ViewChild('cardUploadInput')
-  cardUploadInput!: ElementRef;
-
   user$!: Observable<User>;
   userSubscription!: Subscription;
 
@@ -40,14 +29,41 @@ export class AddNewCardWindowComponent extends Window implements OnInit, OnDestr
 
   uploadCardSubscription!: Subscription;
 
+  addNewCardForm!: FormGroup;
+  addNewCardForm$!: Observable<any>;
+  addNewCardFormSub!: Subscription;
+  addNewCardFormValues!: {
+    name: string,
+    date: string,
+    description: string,
+    file: File | null
+  };
+
   constructor(
     protected override renderer: Renderer2,
     private store: Store,
     private uploadCardToStorageUseCase: UploadCardToStorageUseCase,
     private getCardUrlUseCase: GetCardUrlUseCase,
     private postUserCardUseCase: PostUserCardUseCase,
+    private formBuilder: FormBuilder
   ) {
     super(renderer);
+    this.addNewCardForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      date: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      file: ['', [Validators.required]]
+    });
+    this.addNewCardForm$ = this.addNewCardForm.valueChanges;
+    this.addNewCardFormSub = this.addNewCardForm$.subscribe((card: any) => {
+      console.log(card);
+      this.addNewCardFormValues = {
+        name: card.name,
+        date: card.date,
+        description: card.description,
+        file: null
+      };
+    });
     this.user$ = this.store.select(UserSelectors.selectUserState);
     this.cards$ = this.store.select(CardsSelectors.selectCards).pipe(map((cardsState) => cardsState.cards));
   }
@@ -73,42 +89,46 @@ export class AddNewCardWindowComponent extends Window implements OnInit, OnDestr
     }
   }
 
+  onFileChanged(event: any): void {
+    this.addNewCardFormValues.file = event.target.files[0];
+  }
+
   uploadCard() {
     let cardId = 0;
     console.log(this.cards.length);
     if (this.cards.length != 0) {
       cardId = Math.max(...this.cards.map((card) => card.id)) + 1;
     }
-    const file = this.cardUploadInput.nativeElement.files[0];
-    const fileNameSplitted: string[] = file.name.split('.');
-    const fileFormat: string = fileNameSplitted[fileNameSplitted.length - 1];
+    const file = this.addNewCardFormValues.file;
+    if (file) {
+      const fileNameSplitted: string[] = file.name.split('.');
+      const fileFormat: string = fileNameSplitted[fileNameSplitted.length - 1];
 
-    this.uploadCardSubscription = this.uploadCardToStorageUseCase.invoke(this.user.uid, cardId, fileFormat, file)
-      .pipe(
-        switchMap(() => {
-          console.log("get card url usecase");
-          return this.getCardUrlUseCase.invoke(this.user.uid, cardId);
-        }),
-        switchMap((url) => {
-          console.log("post user card usecase", url);
-          const card: Card = {
-            id: cardId,
-            title: this.cardNameInput.nativeElement.value,
-            description: this.cardDescriptionInput.nativeElement.value,
-            url: url,
-            date: this.cardDateInput.nativeElement.value
-          };
-          return this.postUserCardUseCase.invoke(this.user.uid, card);
-        }))
-      .subscribe((data) => {
-        console.log(data);
-        this.store.dispatch(AddNewCardWindowActions.closeWindow());
-      });
+      this.uploadCardSubscription = this.uploadCardToStorageUseCase.invoke(this.user.uid, cardId, fileFormat, file)
+        .pipe(
+          switchMap(() => {
+            console.log("get card url usecase");
+            return this.getCardUrlUseCase.invoke(this.user.uid, cardId);
+          }),
+          switchMap((url) => {
+            console.log("post user card usecase", url);
+            const card: Card = {
+              id: cardId,
+              title: this.addNewCardFormValues.name,
+              description: this.addNewCardFormValues.description,
+              url: url,
+              date: this.addNewCardFormValues.date
+            };
+            return this.postUserCardUseCase.invoke(this.user.uid, card);
+          }))
+        .subscribe((data) => {
+          console.log(data);
+          this.store.dispatch(AddNewCardWindowActions.closeWindow());
+        });
+    }
   }
 
   closeWindow() {
     this.store.dispatch(AddNewCardWindowActions.closeWindow());
   }
 }
-
-// export interface AddNewCardWindowConfig extends WindowConfig {}

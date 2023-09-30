@@ -20,7 +20,7 @@ import { ViewCardWindowActions } from '../../../core/actions/view-card-window.ac
 export class EditCardWindowComponent extends Window implements OnInit, OnDestroy {
 
   editCardWindowCard$!: Observable<Card | null>;
-  editCardWindowCardSubscription!: Subscription;
+  editCardWindowCardSub!: Subscription;
 
   card!: Card;
   user!: User;
@@ -33,7 +33,7 @@ export class EditCardWindowComponent extends Window implements OnInit, OnDestroy
       .pipe(
         filter(card => !!card)
       );
-    this.editCardWindowCardSubscription = this.editCardWindowCard$.subscribe((card) => {
+    this.editCardWindowCardSub = this.editCardWindowCard$.subscribe((card) => {
       if (card) {
         this.card = card;
       }

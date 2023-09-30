@@ -17,10 +17,10 @@ import { AddNewCardWindowSelectors } from '../../core/selectors/add-new-card-win
 })
 export class CardsListComponent implements OnInit, OnDestroy {
   user$!: Observable<User>;
-  userSubscription!: Subscription;
+  userSub!: Subscription;
   cards$!: Observable<Card[]>;
-  cardsSubscription!: Subscription;
-  storeCardsSubscription!: Subscription;
+  cardsSub!: Subscription;
+  storeCardsSub!: Subscription;
 
   addNewCardWindowShown$!: Observable<boolean>;
 
@@ -36,13 +36,13 @@ export class CardsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.userSubscription = this.user$.subscribe((user) => {
+    this.userSub = this.user$.subscribe((user) => {
       console.log('cards-list', user);
     });
-    this.cardsSubscription = this.cards$.subscribe((cards) => {
+    this.cardsSub = this.cards$.subscribe((cards) => {
       console.log('cards-list', cards);
     });
-    this.storeCardsSubscription = this.user$.pipe(
+    this.storeCardsSub = this.user$.pipe(
       filter((user) => user.uid != ''),
       switchMap((user) => {
         return this.getCardsUseCase.invoke(user.uid)
@@ -53,9 +53,9 @@ export class CardsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
-    this.cardsSubscription.unsubscribe();
-    this.storeCardsSubscription.unsubscribe();
+    this.userSub.unsubscribe();
+    this.cardsSub.unsubscribe();
+    this.storeCardsSub.unsubscribe();
   }
 
   onAddNewCardButtonClicked() {
