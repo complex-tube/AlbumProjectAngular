@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Window } from '../../../core/base/window';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription, switchMap } from 'rxjs';
@@ -11,8 +11,6 @@ import { GetCardUrlUseCase } from '../../../core/usecases/get-card-url.usecase';
 import { PostUserCardUseCase } from '../../../core/usecases/post-user-card.usecase';
 import { AddNewCardWindowActions } from '../../../core/actions/add-new-card-window.actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthUserData } from '../../../core/models/api/auth-user-data.model';
-import { FileChangeEvent } from '@angular/compiler-cli/src/perform_watch';
 
 @Component({
   selector: 'album-add-new-card-window',

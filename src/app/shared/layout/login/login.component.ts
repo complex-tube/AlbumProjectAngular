@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { fromEvent, Observable, Subscription } from 'rxjs';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { LoginUseCase } from '../../../core/usecases/login.usecase';
 import { UserActions } from '../../../core/actions/user.actions';

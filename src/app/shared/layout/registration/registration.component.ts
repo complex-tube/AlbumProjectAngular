@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { filter, fromEvent, Observable, Subscription, switchMap } from 'rxjs';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { filter, Observable, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { RegisterUseCase } from '../../../core/usecases/register.usecase';
 import { UserActions } from '../../../core/actions/user.actions';
-import { StoreService } from '../../../core/services/store/store.service';
 import { UserSelectors } from '../../../core/selectors/user.selectors';
 import { User } from '../../../core/models/user.model';
 import { AuthWindowActions } from '../../../core/actions/auth-window.actions';
