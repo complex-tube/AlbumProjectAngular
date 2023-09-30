@@ -10,6 +10,7 @@ import { StoreService } from '../../../core/services/store/store.service';
 import { User } from '../../../core/models/user.model';
 import { UserSelectors } from '../../../core/selectors/user.selectors';
 import { CardsActions } from '../../../core/actions/cards.actions';
+import { ViewCardWindowActions } from '../../../core/actions/view-card-window.actions';
 
 @Component({
   selector: 'album-edit-card-window',
@@ -40,6 +41,11 @@ export class EditCardWindowComponent extends Window implements OnInit, OnDestroy
     this.store.select(UserSelectors.selectUserState).subscribe(user => {
       this.user = user;
     });
+  }
+
+  onBackGroundClicked() {
+    this.store.dispatch(ViewCardWindowActions.showWindow({card: this.card}));
+    this.closeWindow();
   }
 
   closeWindow() {

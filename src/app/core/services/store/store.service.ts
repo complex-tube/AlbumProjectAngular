@@ -88,7 +88,8 @@ export class StoreService {
               id: d['id'],
               title: d['title'],
               description: d['description'],
-              url: d['url']
+              url: d['url'],
+              date: d['date']
             });
           });
           return cards;
