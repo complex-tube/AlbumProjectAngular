@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { MainModule } from './main/main.module';
 
 import { AngularFireModule } from '@angular/fire/compat';
 
@@ -19,6 +17,13 @@ import { authWindowReducer } from './core/reducers/auth-window.reducer';
 import { addNewCardWindowReducer } from './core/reducers/add-new-card-window.reducer';
 import { editCardWindowReducer } from './core/reducers/edit-card-window.reducer';
 import { viewCardWindowReducer } from './core/reducers/view-card-window.reducer';
+import { AuthWindowModule } from './shared/windows/auth-window/auth-window.module';
+import { SharedModule } from './shared/shared.module';
+import { CollageModule } from './collage/collage.module';
+import { AddNewCardWindowModule } from './shared/windows/card-windows/add-new-card-window/add-new-card-window.module';
+import { ViewCardWindowModule } from './shared/windows/card-windows/view-card-window/view-card-window.module';
+import { EditCardWindowModule } from './shared/windows/card-windows/edit-card-window/edit-card-window.module';
+import { WelcomeModule } from './welcome/welcome.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +31,6 @@ import { viewCardWindowReducer } from './core/reducers/view-card-window.reducer'
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    MainModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
@@ -38,8 +42,14 @@ import { viewCardWindowReducer } from './core/reducers/view-card-window.reducer'
       authWindowState: authWindowReducer,
       addNewCardWindowState: addNewCardWindowReducer,
       editCardWindowState: editCardWindowReducer,
-      viewCardWindowState: viewCardWindowReducer
+      viewCardWindowState: viewCardWindowReducer,
     }),
+    AuthWindowModule,
+    CollageModule,
+    AddNewCardWindowModule,
+    ViewCardWindowModule,
+    EditCardWindowModule,
+    WelcomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

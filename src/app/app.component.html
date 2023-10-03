@@ -1,6 +1,6 @@
 <album-header></album-header>
-<album-cards-list *ngIf='(user$ | async)?.uid !== ""'></album-cards-list>
+<router-outlet></router-outlet>
 <album-footer></album-footer>
 
-<album-edit-card-window *ngIf='editCardWindowShown$ | async'></album-edit-card-window>
-<album-view-card-window *ngIf='isViewCardWindowShown$ | async'></album-view-card-window>
+<album-view-card-window *ngIf='editCardWindowShown$ | async'></album-view-card-window>
+<album-edit-card-window *ngIf='isViewCardWindowShown$ | async'></album-edit-card-window>

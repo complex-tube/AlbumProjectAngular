@@ -15,8 +15,6 @@ import { AuthWindowActions } from '../../../core/actions/auth-window.actions';
 })
 export class AuthWindowComponent extends Window implements OnInit, OnDestroy {
 
-  readonly AuthType = AuthType;
-
   authWindowType$!: Observable<AuthType>;
 
   constructor(

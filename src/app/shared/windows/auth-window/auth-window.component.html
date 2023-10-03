@@ -1,11 +1,8 @@
 <div class="window">
-  <div class="background" (click)="closeWindow()"></div>
+  <div class="background" routerLink='/' (click)="closeWindow()"></div>
   <div class="outer-window" #outerWindow>
     <div class="inner-window">
-      <div class="window-container" [ngSwitch]="authWindowType$ | async">
-        <album-login *ngSwitchCase="AuthType.LOGIN"></album-login>
-        <album-registration *ngSwitchCase="AuthType.REGISTRATION"></album-registration>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
