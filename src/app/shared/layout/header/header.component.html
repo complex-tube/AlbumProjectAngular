@@ -1,6 +1,6 @@
 <header>
   <div class="container">
-    <button class="login" routerLink='/auth/login' (click)="onLoginButtonClick()" *ngIf='(user$ | async)?.uid === ""'>
+    <button class="login" routerLink='/auth' (click)="onLoginButtonClick()" *ngIf='(user$ | async)?.uid === ""'>
       Войти
     </button>
     <button class='logout' routerLink='/' (click)="onLogoutButtonClick()" *ngIf='(user$ | async)?.uid !== ""'>
@@ -8,5 +8,3 @@
     </button>
   </div>
 </header>
-
-<album-auth-window *ngIf='(isAuthWindowShown$ | async) && (user$ | async)?.uid === ""'></album-auth-window>

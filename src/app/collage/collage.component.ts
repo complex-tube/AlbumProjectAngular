@@ -27,13 +27,15 @@ export class CollageComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private getCardsUseCase: GetCardsUseCase
+    private getCardsUseCase: GetCardsUseCase,
   ) {
     this.user$ = this.store.select(UserSelectors.selectUserState);
-    this.cards$ = this.store.select(CardsSelectors.selectCards).pipe(
-      map((cardsState) => cardsState.cards)
+    this.cards$ = this.store
+      .select(CardsSelectors.selectCards)
+      .pipe(map((cardsState) => cardsState.cards));
+    this.addNewCardWindowShown$ = this.store.select(
+      AddNewCardWindowSelectors.selectAddNewCardWindowShown,
     );
-    this.addNewCardWindowShown$ = this.store.select(AddNewCardWindowSelectors.selectAddNewCardWindowShown);
   }
 
   ngOnInit(): void {
@@ -43,20 +45,28 @@ export class CollageComponent implements OnInit, OnDestroy {
     this.cardsSub = this.cards$.subscribe((cards) => {
       console.log('cards-list', cards);
     });
-    this.storeCardsSub = this.user$.pipe(
-      filter((user) => user.uid != ''),
-      switchMap((user) => {
-        return this.getCardsUseCase.invoke(user.uid)
-      })
-    ).subscribe((cards) => {
-      this.store.dispatch(CardsActions.getCards({cards: cards}));
-    });
+    this.storeCardsSub = this.user$
+      .pipe(
+        filter((user) => user.uid != ''),
+        switchMap((user) => {
+          return this.getCardsUseCase.invoke(user.uid);
+        }),
+      )
+      .subscribe((cards) => {
+        this.store.dispatch(CardsActions.getCards({ cards: cards }));
+      });
   }
 
   ngOnDestroy() {
-    this.userSub.unsubscribe();
-    this.cardsSub.unsubscribe();
-    this.storeCardsSub.unsubscribe();
+    if (this.userSub) {
+      this.userSub.unsubscribe();
+    }
+    if (this.cardsSub) {
+      this.cardsSub.unsubscribe();
+    }
+    if (this.storeCardsSub) {
+      this.storeCardsSub.unsubscribe();
+    }
   }
 
   onAddNewCardButtonClicked() {

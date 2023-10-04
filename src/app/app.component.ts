@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { BaseComponent } from './core/base/base-component';
 import { map, Observable } from 'rxjs';
 import { User } from './core/models/user.model';
@@ -9,6 +9,7 @@ import { Card } from './core/models/card.model';
 import { CardsSelectors } from './core/selectors/cards.selectors';
 import { EditCardWindowSelectors } from './core/selectors/edit-card-window.selectors';
 import { ViewCardWindowSelectors } from './core/selectors/view-card-window.selectors';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'album-root',
@@ -22,6 +23,7 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   editCardWindowShown$!: Observable<boolean>;
   isViewCardWindowShown$!: Observable<boolean>;
+
   constructor(
     private loginExistedUserUseCase: LoginExistedUserUseCase,
     private store: Store

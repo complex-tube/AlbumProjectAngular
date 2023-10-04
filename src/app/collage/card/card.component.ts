@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { EditCardWindowSelectors } from '../../core/selectors/edit-card-window.selectors';
 import { ViewCardWindowActions } from '../../core/actions/view-card-window.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'album-card',
@@ -19,7 +20,7 @@ export class CardComponent {
 
   editWindowShown$!: Observable<boolean>;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private router: Router) {
     this.editWindowShown$ = this.store.select(EditCardWindowSelectors.selectEditCardWindowShown);
   }
 
@@ -46,6 +47,7 @@ export class CardComponent {
   onClick(): void {
     console.log('card item view card show window dispatch');
     this.store.dispatch(ViewCardWindowActions.showWindow({card: this.card}));
+    this.router.navigate(['collage/card', this.card.id, 'view']);
   }
 
   private getRotateValues(eventTarget: MouseEvent): { x: number; y: number } {
