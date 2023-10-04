@@ -5,7 +5,7 @@ import { ViewCardWindowSelectors } from '../../../../core/selectors/view-card-wi
 import { Card } from '../../../../core/models/card.model';
 import { ViewCardWindowActions } from '../../../../core/actions/view-card-window.actions';
 import { EditCardWindowActions } from '../../../../core/actions/edit-card-window.actions';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'album-view-card-window',

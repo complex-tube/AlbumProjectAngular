@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'album-card-windows',
@@ -7,7 +6,4 @@ import { Router } from '@angular/router';
   styleUrls: ['./card-windows.component.scss'],
 })
 export class CardWindowsComponent {
-
-  constructor(router: Router) {
-  }
 }
