@@ -22,6 +22,7 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   editCardWindowShown$!: Observable<boolean>;
   isViewCardWindowShown$!: Observable<boolean>;
+
   constructor(
     private loginExistedUserUseCase: LoginExistedUserUseCase,
     private store: Store

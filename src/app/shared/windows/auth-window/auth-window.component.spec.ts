@@ -2,17 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthWindowComponent } from './auth-window.component';
 
-describe('LoginWindowComponent', () => {
+describe('AuthWindowComponent', () => {
   let component: AuthWindowComponent;
   let fixture: ComponentFixture<AuthWindowComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [AuthWindowComponent],
-    }).compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AuthWindowComponent]
+    });
     fixture = TestBed.createComponent(AuthWindowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

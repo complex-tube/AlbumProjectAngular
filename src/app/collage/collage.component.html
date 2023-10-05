@@ -1,0 +1,11 @@
+<main>
+  <div class="container">
+    <ul>
+      <album-card *ngFor="let cardValue of (cards$ | async)" [card]="cardValue"></album-card>
+      <button routerLink='/collage/card/add' class='add-card' *ngIf="(user$ | async)?.uid !== ''" (click)='onAddNewCardButtonClicked()'>
+        Add Another Card
+      </button>
+    </ul>
+  </div>
+</main>
+<router-outlet></router-outlet>

@@ -1,0 +1,36 @@
+@use "src/base";
+
+main {
+  display: flex;
+  flex: auto;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    width: base.$container-adaptive-full-hd-width;
+
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 20px;
+      justify-items: center;
+      align-items: center;
+      list-style: none;
+      transform-style: preserve-3d;
+
+      album-card {
+        perspective: 500px;
+      }
+
+      button {
+        height: base.$card-adaptive-height-full-hd;
+        width: base.$card-adaptive-width-full-hd;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

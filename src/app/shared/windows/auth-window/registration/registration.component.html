@@ -1,0 +1,30 @@
+<div class="registration">
+  <h1>Зарегистрироваться</h1>
+  <form [formGroup]='registrationForm' (ngSubmit)='submitRegistration()'>
+    <div class='form-group'>
+      <label>Email: </label>
+      <input type='email' class='email' name='email' formControlName='email'>
+      <div class='alert alert-danger' *ngIf='registrationForm.controls["email"].invalid && registrationForm.controls["email"].touched'>
+        Некорректный email
+      </div>
+    </div>
+    <div class='form-group'>
+      <label>Password: </label>
+      <input type='password' class='password' name='password' formControlName='password'>
+      <div class='alert alert-danger' *ngIf='registrationForm.controls["password"].invalid && registrationForm.controls["password"].touched'>
+        Некорректный пароль
+      </div>
+    </div>
+    <div class='form-group'>
+      <label>Password Again: </label>
+      <input type='password' class='password-again' name='passwordAgain' formControlName='passwordAgain'>
+      <div class='alert alert-danger' *ngIf='registrationForm.controls["passwordAgain"].invalid && registrationForm.controls["passwordAgain"].touched'>
+        Некорректный пароль
+      </div>
+    </div>
+    <div class='form-group'>
+      <button class="button submit" [disabled]='registrationForm.invalid'>Submit</button>
+    </div>
+  </form>
+  <a class="to-login anchor" routerLink='/auth/login' (click)='onToLoginButtonClicked()'>Уже есть аккаунт</a>
+</div>
