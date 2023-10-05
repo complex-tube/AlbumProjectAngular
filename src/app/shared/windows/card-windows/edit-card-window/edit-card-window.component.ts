@@ -52,7 +52,7 @@ export class EditCardWindowComponent extends Window implements OnInit, OnDestroy
 
   closeWindow() {
     this.store.dispatch(EditCardWindowActions.closeWindow());
-    this.router.navigate(['collage/card', this.card.id, 'view'])
+    this.router.navigate(['collage'])
   }
 
   deleteCard() {
