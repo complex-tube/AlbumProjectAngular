@@ -9,6 +9,7 @@ import { PostUserToStoreUseCase } from '../../../../core/usecases/post-user-to-s
 import { UserSelectors } from '../../../../core/selectors/user.selectors';
 import { UserActions } from '../../../../core/actions/user.actions';
 import { AuthWindowActions } from '../../../../core/actions/auth-window.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'album-registration',
@@ -31,7 +32,8 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
     private store: Store,
     private registerUseCase: RegisterUseCase,
     private postUserToStore: PostUserToStoreUseCase,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.registrationForm = formBuilder.group({
       email: ['', [Validators.email, Validators.required]],
@@ -86,5 +88,6 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
   onToLoginButtonClicked(): void {
     console.log('registration set login auth type dispatch');
     this.store.dispatch(AuthWindowActions.setLoginAuthType());
+    this.router.navigate(['/collage']);
   }
 }
