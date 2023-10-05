@@ -89,6 +89,5 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
   onToLoginButtonClicked(): void {
     console.log('registration set login auth type dispatch');
     this.store.dispatch(AuthWindowActions.setLoginAuthType());
-    this.router.navigate(['/collage']);
   }
 }
