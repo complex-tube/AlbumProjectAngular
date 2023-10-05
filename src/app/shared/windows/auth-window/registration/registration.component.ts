@@ -82,6 +82,7 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
     }).subscribe((user) => {
       console.log('registration register user dispatch');
       this.store.dispatch(UserActions.registerUser({uid: user.uid, email: user.email}));
+      this.router.navigate(['/collage']);
     });
   }
 
