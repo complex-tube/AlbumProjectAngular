@@ -82,12 +82,12 @@ export class RegistrationComponent implements AfterViewInit, OnDestroy {
     }).subscribe((user) => {
       console.log('registration register user dispatch');
       this.store.dispatch(UserActions.registerUser({uid: user.uid, email: user.email}));
+      this.router.navigate(['/collage']);
     });
   }
 
   onToLoginButtonClicked(): void {
     console.log('registration set login auth type dispatch');
     this.store.dispatch(AuthWindowActions.setLoginAuthType());
-    this.router.navigate(['/collage']);
   }
 }
